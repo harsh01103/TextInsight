@@ -40,10 +40,10 @@ dev = [
     "twine>=5",
 ]
 
+
 [project.urls]
-# Update these once the GitHub repository exists.
-Homepage = "https://github.com/YOUR-USERNAME/textinsight"
-Issues = "https://github.com/YOUR-USERNAME/textinsight/issues"
+Homepage = "https://github.com/harsh01103/textinsight"
+Issues = "https://github.com/harsh01103/textinsight/issues"
 
 [tool.hatch.version]
 path = "src/textinsight/_version.py"
