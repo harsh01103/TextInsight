@@ -25,7 +25,8 @@ from .core import (
     config,
     list_backends,
 )
-from .preprocess import clean
+from .langid import detect_language
+from .preprocess import clean, normalize, normalize_hinglish, remove_stopwords, sentences, tokenize
 
 logging.getLogger(__name__).addHandler(logging.NullHandler())
 
@@ -47,5 +48,11 @@ __all__ = [
     "__version__",
     "clean",
     "config",
+    "detect_language",
     "list_backends",
+    "normalize",
+    "normalize_hinglish",
+    "remove_stopwords",
+    "sentences",
+    "tokenize",
 ]

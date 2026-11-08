@@ -1,0 +1,40 @@
+{
+  "backend": "heuristic",
+  "version": "0.0.1",
+  "sample_size": 120,
+  "accuracy": 0.992,
+  "per_label": {
+    "en": {
+      "support": 40,
+      "precision": 1.0,
+      "recall": 0.975,
+      "f1": 0.987
+    },
+    "hi": {
+      "support": 20,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0
+    },
+    "hi-en": {
+      "support": 60,
+      "precision": 0.984,
+      "recall": 1.0,
+      "f1": 0.992
+    }
+  },
+  "confusion": {
+    "en -> en": 39,
+    "en -> hi-en": 1,
+    "hi -> hi": 20,
+    "hi-en -> hi-en": 60
+  },
+  "errors": [
+    {
+      "text": "Their pizza arrived cold and soggy",
+      "gold": "en",
+      "predicted": "hi-en"
+    }
+  ],
+  "caveat": "Small hand-written sample by the same author as the word lists; not independent data. Treat as a sanity check."
+}

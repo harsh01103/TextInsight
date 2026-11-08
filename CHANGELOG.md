@@ -11,4 +11,8 @@ and the project uses [Semantic Versioning](https://semver.org/).
 - Core foundation: configuration, exception hierarchy, input validation, typed result classes,
   backend base class, backend registry with `"auto"` selection, and a model manager with
   on-disk caching, SHA-256 verification and offline mode.
-- Placeholder `clean()` that normalizes whitespace (full cleaner arrives in Phase 2).
+- Configurable `clean()`: HTML, URLs, emails, mentions, hashtags, emojis, numbers, punctuation.
+- `tokenize()` and `sentences()` for informal English and Hinglish, including Devanagari and the danda.
+- Hinglish spelling normalization: `normalize_hinglish()` and `cluster_variants()` for mining new variants.
+- `normalize()` and `remove_stopwords()` for English and Hinglish.
+- `detect_language()` with a from-scratch character n-gram classifier, plus a first benchmark.

@@ -2,7 +2,7 @@
 
 **Lightweight, offline-first NLP for English and Hinglish text, with pluggable backends.**
 
-> Status: pre-alpha. The core foundation is in place; NLP tasks arrive in upcoming releases.
+> Status: pre-alpha. Preprocessing and language detection work; sentiment and other tasks arrive in upcoming releases.
 > See `TextInsight_Architecture_and_Roadmap.docx` for the full plan.
 
 ## Why TextInsight?
@@ -26,10 +26,26 @@ pip install textinsight
 ```python
 import textinsight as ti
 
-ti.clean("  Hello    world!  ")  # 'Hello world!'
+ti.clean("Visit https://example.com now!", lowercase=True)  # 'visit now!'
+ti.tokenize("Don't miss it :) #sale")  # ["Don't", 'miss', 'it', ':)', '#sale']
+ti.sentences("Dr. Rao aaye. yeh accha hai!")  # ['Dr. Rao aaye.', 'yeh accha hai!']
+ti.normalize_hinglish("bohot acha hai")  # 'bahut accha hai'
+ti.detect_language("yeh phone mast hai but battery bekaar").language  # 'hi-en'
+
 ti.list_backends()  # registered backends
 ti.config.offline = True  # never download models
 ```
+
+Language labels are `en`, `hi` (mainly Devanagari), `hi-en` (code-mixed or romanized Hindi)
+and `und` (undetermined).
+
+## Benchmarks
+
+| Task | Data | Result | Notes |
+|---|---|---|---|
+| Language detection | 120 hand-written sentences | 99.2% accuracy | Sanity check only: the sample and the word lists have the same author. See `benchmarks/`. |
+
+An independent measurement on real code-mixed data is planned for Phase 3.
 
 ## Planned features
 
