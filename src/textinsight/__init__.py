@@ -27,6 +27,7 @@ from .core import (
 )
 from .langid import detect_language
 from .preprocess import clean, normalize, normalize_hinglish, remove_stopwords, sentences, tokenize
+from .sentiment import sentiment
 
 logging.getLogger(__name__).addHandler(logging.NullHandler())
 
@@ -54,5 +55,6 @@ __all__ = [
     "normalize_hinglish",
     "remove_stopwords",
     "sentences",
+    "sentiment",
     "tokenize",
 ]

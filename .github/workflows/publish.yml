@@ -1,0 +1,25 @@
+name: Publish to PyPI
+
+# Runs when a version tag such as v0.1.0 is pushed.
+# Needs a Trusted Publisher configured on PyPI for this repository,
+# with workflow "publish.yml" and environment "pypi".
+on:
+  push:
+    tags: ["v*"]
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    environment: pypi
+    permissions:
+      id-token: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -e ".[dev]"
+      - run: pytest -m "not slow"
+      - run: python -m build
+      - run: twine check dist/*
+      - uses: pypa/gh-action-pypi-publish@release/v1

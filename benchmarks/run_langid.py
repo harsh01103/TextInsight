@@ -4,7 +4,7 @@ Usage: python benchmarks/run_langid.py
 Writes benchmarks/results/langid.json.
 
 The sample was written by the same author as the word lists, so treat the score
-as a sanity check. An independent measurement on real data comes in Phase 3.
+as a sanity check. For results on real data, run ``textinsight benchmark langid``.
 """
 
 from __future__ import annotations
