@@ -13,7 +13,7 @@ requires-python = ">=3.10"
 authors = [{ name = "Harsh Vardhan Ajmera" }]
 keywords = ["nlp", "sentiment", "hinglish", "code-mixed", "keywords", "summarization", "text-analysis"]
 classifiers = [
-    "Development Status :: 2 - Pre-Alpha",
+    "Development Status :: 3 - Alpha",
     "Intended Audience :: Developers",
     "Intended Audience :: Science/Research",
     "Operating System :: OS Independent",
@@ -39,7 +39,17 @@ dev = [
     "build>=1.2",
     "twine>=5",
 ]
+transformers = [
+    "torch>=2.2",
+    "transformers>=4.40",
+]
+training = [
+    "scikit-learn>=1.5",
+    "vaderSentiment>=3.3.2",
+]
 
+[project.scripts]
+textinsight = "textinsight.cli:main"
 
 [project.urls]
 Homepage = "https://github.com/harsh01103/textinsight"
@@ -93,3 +103,7 @@ mypy_path = "src"
 packages = ["textinsight"]
 strict = true
 warn_unreachable = true
+
+[[tool.mypy.overrides]]
+module = ["torch", "transformers"]
+ignore_missing_imports = true

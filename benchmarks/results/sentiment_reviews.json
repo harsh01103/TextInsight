@@ -1,0 +1,16 @@
+{
+  "tune": {
+    "lexicon": 0.902,
+    "classical": 0.87,
+    "classical_without_fallback": 0.49,
+    "hybrid": 0.902,
+    "hybrid_without_fallback": 0.548
+  },
+  "holdout": {
+    "lexicon": 0.84,
+    "classical": 0.819,
+    "classical_without_fallback": 0.581,
+    "hybrid": 0.834,
+    "hybrid_without_fallback": 0.499
+  }
+}

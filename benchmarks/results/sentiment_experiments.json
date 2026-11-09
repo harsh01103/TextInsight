@@ -1,0 +1,1302 @@
+{
+  "stage_1": [
+    {
+      "macro_f1": 0.6273063156457336,
+      "std": 0.002563593636063175,
+      "weighted_f1": 0.6233259298169354,
+      "spec": {
+        "name": "baseline",
+        "options": {
+          "hinglish": true,
+          "word_ngrams": [
+            1,
+            2
+          ],
+          "char_sizes": [
+            3,
+            4
+          ],
+          "negation": false,
+          "lexicon": false,
+          "raw_words": false,
+          "drop_noise": false
+        },
+        "model": "lr",
+        "c": 1.0,
+        "min_df": 2
+      }
+    },
+    {
+      "macro_f1": 0.6272250351485402,
+      "std": 0.002781693531327308,
+      "weighted_f1": 0.6232671286011436,
+      "spec": {
+        "name": "+negation",
+        "options": {
+          "hinglish": true,
+          "word_ngrams": [
+            1,
+            2
+          ],
+          "char_sizes": [
+            3,
+            4
+          ],
+          "negation": true,
+          "lexicon": false,
+          "raw_words": false,
+          "drop_noise": false
+        },
+        "model": "lr",
+        "c": 1.0,
+        "min_df": 2
+      }
+    },
+    {
+      "macro_f1": 0.6280640278536511,
+      "std": 0.005162062799441309,
+      "weighted_f1": 0.6240840659386376,
+      "spec": {
+        "name": "+lexicon",
+        "options": {
+          "hinglish": true,
+          "word_ngrams": [
+            1,
+            2
+          ],
+          "char_sizes": [
+            3,
+            4
+          ],
+          "negation": false,
+          "lexicon": true,
+          "raw_words": false,
+          "drop_noise": false
+        },
+        "model": "lr",
+        "c": 1.0,
+        "min_df": 2
+      }
+    },
+    {
+      "macro_f1": 0.6271610995521649,
+      "std": 0.0018485202528869672,
+      "weighted_f1": 0.623022133737376,
+      "spec": {
+        "name": "+raw_words",
+        "options": {
+          "hinglish": true,
+          "word_ngrams": [
+            1,
+            2
+          ],
+          "char_sizes": [
+            3,
+            4
+          ],
+          "negation": false,
+          "lexicon": false,
+          "raw_words": true,
+          "drop_noise": false
+        },
+        "model": "lr",
+        "c": 1.0,
+        "min_df": 2
+      }
+    },
+    {
+      "macro_f1": 0.6269328156838005,
+      "std": 0.004652285127171458,
+      "weighted_f1": 0.622807683501477,
+      "spec": {
+        "name": "+drop_noise",
+        "options": {
+          "hinglish": true,
+          "word_ngrams": [
+            1,
+            2
+          ],
+          "char_sizes": [
+            3,
+            4
+          ],
+          "negation": false,
+          "lexicon": false,
+          "raw_words": false,
+          "drop_noise": true
+        },
+        "model": "lr",
+        "c": 1.0,
+        "min_df": 2
+      }
+    },
+    {
+      "macro_f1": 0.6261004508327976,
+      "std": 0.0024675972213440054,
+      "weighted_f1": 0.6220873872695868,
+      "spec": {
+        "name": "no_normalizer",
+        "options": {
+          "hinglish": false,
+          "word_ngrams": [
+            1,
+            2
+          ],
+          "char_sizes": [
+            3,
+            4
+          ],
+          "negation": false,
+          "lexicon": false,
+          "raw_words": false,
+          "drop_noise": false
+        },
+        "model": "lr",
+        "c": 1.0,
+        "min_df": 2
+      }
+    },
+    {
+      "macro_f1": 0.6276329650724572,
+      "std": 0.00480064106917626,
+      "weighted_f1": 0.6235208314967388,
+      "spec": {
+        "name": "char_2-5",
+        "options": {
+          "hinglish": true,
+          "word_ngrams": [
+            1,
+            2
+          ],
+          "char_sizes": [
+            2,
+            3,
+            4,
+            5
+          ],
+          "negation": false,
+          "lexicon": false,
+          "raw_words": false,
+          "drop_noise": false
+        },
+        "model": "lr",
+        "c": 1.0,
+        "min_df": 2
+      }
+    },
+    {
+      "macro_f1": 0.6288991804119012,
+      "std": 0.0029824846115869045,
+      "weighted_f1": 0.6249246307285851,
+      "spec": {
+        "name": "char_3-5",
+        "options": {
+          "hinglish": true,
+          "word_ngrams": [
+            1,
+            2
+          ],
+          "char_sizes": [
+            3,
+            4,
+            5
+          ],
+          "negation": false,
+          "lexicon": false,
+          "raw_words": false,
+          "drop_noise": false
+        },
+        "model": "lr",
+        "c": 1.0,
+        "min_df": 2
+      }
+    },
+    {
+      "macro_f1": 0.6152856704661334,
+      "std": 0.005772770920919378,
+      "weighted_f1": 0.6104928558611269,
+      "spec": {
+        "name": "no_char",
+        "options": {
+          "hinglish": true,
+          "word_ngrams": [
+            1,
+            2
+          ],
+          "char_sizes": [],
+          "negation": false,
+          "lexicon": false,
+          "raw_words": false,
+          "drop_noise": false
+        },
+        "model": "lr",
+        "c": 1.0,
+        "min_df": 2
+      }
+    },
+    {
+      "macro_f1": 0.6279210381681076,
+      "std": 0.002014354215500726,
+      "weighted_f1": 0.6237555777463468,
+      "spec": {
+        "name": "word_1-3",
+        "options": {
+          "hinglish": true,
+          "word_ngrams": [
+            1,
+            2,
+            3
+          ],
+          "char_sizes": [
+            3,
+            4
+          ],
+          "negation": false,
+          "lexicon": false,
+          "raw_words": false,
+          "drop_noise": false
+        },
+        "model": "lr",
+        "c": 1.0,
+        "min_df": 2
+      }
+    },
+    {
+      "macro_f1": 0.6250409719685416,
+      "std": 0.004668034210133172,
+      "weighted_f1": 0.6213292159414116,
+      "spec": {
+        "name": "word_1",
+        "options": {
+          "hinglish": true,
+          "word_ngrams": [
+            1
+          ],
+          "char_sizes": [
+            3,
+            4
+          ],
+          "negation": false,
+          "lexicon": false,
+          "raw_words": false,
+          "drop_noise": false
+        },
+        "model": "lr",
+        "c": 1.0,
+        "min_df": 2
+      }
+    },
+    {
+      "macro_f1": 0.6269408023066804,
+      "std": 0.004218575820008799,
+      "weighted_f1": 0.6218062064063461,
+      "spec": {
+        "name": "min_df_1",
+        "options": {
+          "hinglish": true,
+          "word_ngrams": [
+            1,
+            2
+          ],
+          "char_sizes": [
+            3,
+            4
+          ],
+          "negation": false,
+          "lexicon": false,
+          "raw_words": false,
+          "drop_noise": false
+        },
+        "model": "lr",
+        "c": 1.0,
+        "min_df": 1
+      }
+    },
+    {
+      "macro_f1": 0.6268142455599243,
+      "std": 0.002786601441658086,
+      "weighted_f1": 0.6229282833570662,
+      "spec": {
+        "name": "min_df_3",
+        "options": {
+          "hinglish": true,
+          "word_ngrams": [
+            1,
+            2
+          ],
+          "char_sizes": [
+            3,
+            4
+          ],
+          "negation": false,
+          "lexicon": false,
+          "raw_words": false,
+          "drop_noise": false
+        },
+        "model": "lr",
+        "c": 1.0,
+        "min_df": 3
+      }
+    },
+    {
+      "macro_f1": 0.6289682591534447,
+      "std": 0.002845884357736528,
+      "weighted_f1": 0.6251416838773787,
+      "spec": {
+        "name": "lr_c0.5",
+        "options": {
+          "hinglish": true,
+          "word_ngrams": [
+            1,
+            2
+          ],
+          "char_sizes": [
+            3,
+            4
+          ],
+          "negation": false,
+          "lexicon": false,
+          "raw_words": false,
+          "drop_noise": false
+        },
+        "model": "lr",
+        "c": 0.5,
+        "min_df": 2
+      }
+    },
+    {
+      "macro_f1": 0.6212613682528042,
+      "std": 0.0038582899690007264,
+      "weighted_f1": 0.6171513044010571,
+      "spec": {
+        "name": "lr_c2",
+        "options": {
+          "hinglish": true,
+          "word_ngrams": [
+            1,
+            2
+          ],
+          "char_sizes": [
+            3,
+            4
+          ],
+          "negation": false,
+          "lexicon": false,
+          "raw_words": false,
+          "drop_noise": false
+        },
+        "model": "lr",
+        "c": 2.0,
+        "min_df": 2
+      }
+    },
+    {
+      "macro_f1": 0.6319067431306145,
+      "std": 0.009132371722918427,
+      "weighted_f1": 0.629537397934519,
+      "spec": {
+        "name": "nblr_c0.3",
+        "options": {
+          "hinglish": true,
+          "word_ngrams": [
+            1,
+            2
+          ],
+          "char_sizes": [
+            3,
+            4
+          ],
+          "negation": false,
+          "lexicon": false,
+          "raw_words": false,
+          "drop_noise": false
+        },
+        "model": "nblr",
+        "c": 0.3,
+        "min_df": 2
+      }
+    },
+    {
+      "macro_f1": 0.6396713914947759,
+      "std": 0.010311409999146705,
+      "weighted_f1": 0.6367001641757069,
+      "spec": {
+        "name": "nblr_c1",
+        "options": {
+          "hinglish": true,
+          "word_ngrams": [
+            1,
+            2
+          ],
+          "char_sizes": [
+            3,
+            4
+          ],
+          "negation": false,
+          "lexicon": false,
+          "raw_words": false,
+          "drop_noise": false
+        },
+        "model": "nblr",
+        "c": 1.0,
+        "min_df": 2
+      }
+    },
+    {
+      "macro_f1": 0.6294031959194584,
+      "std": 0.005520335428575883,
+      "weighted_f1": 0.625092909014769,
+      "spec": {
+        "name": "svc_c0.05",
+        "options": {
+          "hinglish": true,
+          "word_ngrams": [
+            1,
+            2
+          ],
+          "char_sizes": [
+            3,
+            4
+          ],
+          "negation": false,
+          "lexicon": false,
+          "raw_words": false,
+          "drop_noise": false
+        },
+        "model": "svc",
+        "c": 0.05,
+        "min_df": 2
+      }
+    },
+    {
+      "macro_f1": 0.6309916926546791,
+      "std": 0.0038808866376057547,
+      "weighted_f1": 0.6266469979820658,
+      "spec": {
+        "name": "svc_c0.1",
+        "options": {
+          "hinglish": true,
+          "word_ngrams": [
+            1,
+            2
+          ],
+          "char_sizes": [
+            3,
+            4
+          ],
+          "negation": false,
+          "lexicon": false,
+          "raw_words": false,
+          "drop_noise": false
+        },
+        "model": "svc",
+        "c": 0.1,
+        "min_df": 2
+      }
+    },
+    {
+      "macro_f1": 0.6230777679569339,
+      "std": 0.003936182816069404,
+      "weighted_f1": 0.6185146414646111,
+      "spec": {
+        "name": "svc_c0.3",
+        "options": {
+          "hinglish": true,
+          "word_ngrams": [
+            1,
+            2
+          ],
+          "char_sizes": [
+            3,
+            4
+          ],
+          "negation": false,
+          "lexicon": false,
+          "raw_words": false,
+          "drop_noise": false
+        },
+        "model": "svc",
+        "c": 0.3,
+        "min_df": 2
+      }
+    }
+  ],
+  "stage_2": [
+    {
+      "macro_f1": 0.6396713914947759,
+      "std": 0.010311409999146705,
+      "weighted_f1": 0.6367001641757069,
+      "spec": {
+        "name": "nblr_base",
+        "options": {
+          "hinglish": true,
+          "word_ngrams": [
+            1,
+            2
+          ],
+          "char_sizes": [
+            3,
+            4
+          ],
+          "negation": false,
+          "lexicon": false,
+          "raw_words": false,
+          "drop_noise": false,
+          "phonetic": false,
+          "skeleton": false,
+          "code_mix": false
+        },
+        "model": "nblr",
+        "c": 1.0,
+        "min_df": 2
+      }
+    },
+    {
+      "macro_f1": 0.6382977937973388,
+      "std": 0.007923137927556946,
+      "weighted_f1": 0.6350266776734212,
+      "spec": {
+        "name": "nblr_c2",
+        "options": {
+          "hinglish": true,
+          "word_ngrams": [
+            1,
+            2
+          ],
+          "char_sizes": [
+            3,
+            4
+          ],
+          "negation": false,
+          "lexicon": false,
+          "raw_words": false,
+          "drop_noise": false,
+          "phonetic": false,
+          "skeleton": false,
+          "code_mix": false
+        },
+        "model": "nblr",
+        "c": 2.0,
+        "min_df": 2
+      }
+    },
+    {
+      "macro_f1": 0.6333807141628646,
+      "std": 0.006554296190918571,
+      "weighted_f1": 0.629815055856511,
+      "spec": {
+        "name": "nblr_c4",
+        "options": {
+          "hinglish": true,
+          "word_ngrams": [
+            1,
+            2
+          ],
+          "char_sizes": [
+            3,
+            4
+          ],
+          "negation": false,
+          "lexicon": false,
+          "raw_words": false,
+          "drop_noise": false,
+          "phonetic": false,
+          "skeleton": false,
+          "code_mix": false
+        },
+        "model": "nblr",
+        "c": 4.0,
+        "min_df": 2
+      }
+    },
+    {
+      "macro_f1": 0.6403130745363933,
+      "std": 0.0075619290573329095,
+      "weighted_f1": 0.6372535715233187,
+      "spec": {
+        "name": "nblr_phonetic",
+        "options": {
+          "hinglish": true,
+          "word_ngrams": [
+            1,
+            2
+          ],
+          "char_sizes": [
+            3,
+            4
+          ],
+          "negation": false,
+          "lexicon": false,
+          "raw_words": false,
+          "drop_noise": false,
+          "phonetic": true,
+          "skeleton": false,
+          "code_mix": false
+        },
+        "model": "nblr",
+        "c": 1.0,
+        "min_df": 2
+      }
+    },
+    {
+      "macro_f1": 0.6425264360834876,
+      "std": 0.008848235770482826,
+      "weighted_f1": 0.6395449433986449,
+      "spec": {
+        "name": "nblr_skeleton",
+        "options": {
+          "hinglish": true,
+          "word_ngrams": [
+            1,
+            2
+          ],
+          "char_sizes": [
+            3,
+            4
+          ],
+          "negation": false,
+          "lexicon": false,
+          "raw_words": false,
+          "drop_noise": false,
+          "phonetic": false,
+          "skeleton": true,
+          "code_mix": false
+        },
+        "model": "nblr",
+        "c": 1.0,
+        "min_df": 2
+      }
+    },
+    {
+      "macro_f1": 0.640372423737623,
+      "std": 0.010015811696510333,
+      "weighted_f1": 0.6372924633174017,
+      "spec": {
+        "name": "nblr_code_mix",
+        "options": {
+          "hinglish": true,
+          "word_ngrams": [
+            1,
+            2
+          ],
+          "char_sizes": [
+            3,
+            4
+          ],
+          "negation": false,
+          "lexicon": false,
+          "raw_words": false,
+          "drop_noise": false,
+          "phonetic": false,
+          "skeleton": false,
+          "code_mix": true
+        },
+        "model": "nblr",
+        "c": 1.0,
+        "min_df": 2
+      }
+    },
+    {
+      "macro_f1": 0.6391713626367218,
+      "std": 0.006752396599304956,
+      "weighted_f1": 0.6362236590300728,
+      "spec": {
+        "name": "nblr_no_normalizer",
+        "options": {
+          "hinglish": false,
+          "word_ngrams": [
+            1,
+            2
+          ],
+          "char_sizes": [
+            3,
+            4
+          ],
+          "negation": false,
+          "lexicon": false,
+          "raw_words": false,
+          "drop_noise": false,
+          "phonetic": false,
+          "skeleton": false,
+          "code_mix": false
+        },
+        "model": "nblr",
+        "c": 1.0,
+        "min_df": 2
+      }
+    },
+    {
+      "macro_f1": 0.6404826353283068,
+      "std": 0.009515530554786827,
+      "weighted_f1": 0.6374981287693782,
+      "spec": {
+        "name": "nblr_negation",
+        "options": {
+          "hinglish": true,
+          "word_ngrams": [
+            1,
+            2
+          ],
+          "char_sizes": [
+            3,
+            4
+          ],
+          "negation": true,
+          "lexicon": false,
+          "raw_words": false,
+          "drop_noise": false,
+          "phonetic": false,
+          "skeleton": false,
+          "code_mix": false
+        },
+        "model": "nblr",
+        "c": 1.0,
+        "min_df": 2
+      }
+    },
+    {
+      "macro_f1": 0.6396320095959973,
+      "std": 0.008699043593515575,
+      "weighted_f1": 0.6364089791495919,
+      "spec": {
+        "name": "nblr_lexicon",
+        "options": {
+          "hinglish": true,
+          "word_ngrams": [
+            1,
+            2
+          ],
+          "char_sizes": [
+            3,
+            4
+          ],
+          "negation": false,
+          "lexicon": true,
+          "raw_words": false,
+          "drop_noise": false,
+          "phonetic": false,
+          "skeleton": false,
+          "code_mix": false
+        },
+        "model": "nblr",
+        "c": 1.0,
+        "min_df": 2
+      }
+    },
+    {
+      "macro_f1": 0.6402551096614592,
+      "std": 0.005934524556066998,
+      "weighted_f1": 0.6372681722800623,
+      "spec": {
+        "name": "nblr_char_3-5",
+        "options": {
+          "hinglish": true,
+          "word_ngrams": [
+            1,
+            2
+          ],
+          "char_sizes": [
+            3,
+            4,
+            5
+          ],
+          "negation": false,
+          "lexicon": false,
+          "raw_words": false,
+          "drop_noise": false,
+          "phonetic": false,
+          "skeleton": false,
+          "code_mix": false
+        },
+        "model": "nblr",
+        "c": 1.0,
+        "min_df": 2
+      }
+    },
+    {
+      "macro_f1": 0.6269977562295296,
+      "std": 0.008448082880859839,
+      "weighted_f1": 0.6236467432699785,
+      "spec": {
+        "name": "nblr_no_char",
+        "options": {
+          "hinglish": true,
+          "word_ngrams": [
+            1,
+            2
+          ],
+          "char_sizes": [],
+          "negation": false,
+          "lexicon": false,
+          "raw_words": false,
+          "drop_noise": false,
+          "phonetic": false,
+          "skeleton": false,
+          "code_mix": false
+        },
+        "model": "nblr",
+        "c": 1.0,
+        "min_df": 2
+      }
+    },
+    {
+      "macro_f1": 0.6368368698091774,
+      "std": 0.00875037516767319,
+      "weighted_f1": 0.633937300150214,
+      "spec": {
+        "name": "nblr_word_1",
+        "options": {
+          "hinglish": true,
+          "word_ngrams": [
+            1
+          ],
+          "char_sizes": [
+            3,
+            4
+          ],
+          "negation": false,
+          "lexicon": false,
+          "raw_words": false,
+          "drop_noise": false,
+          "phonetic": false,
+          "skeleton": false,
+          "code_mix": false
+        },
+        "model": "nblr",
+        "c": 1.0,
+        "min_df": 2
+      }
+    },
+    {
+      "macro_f1": 0.641703283649364,
+      "std": 0.00792522625818197,
+      "weighted_f1": 0.6384170533114305,
+      "spec": {
+        "name": "nblr_all_hinglish",
+        "options": {
+          "hinglish": true,
+          "word_ngrams": [
+            1,
+            2
+          ],
+          "char_sizes": [
+            3,
+            4
+          ],
+          "negation": true,
+          "lexicon": true,
+          "raw_words": false,
+          "drop_noise": false,
+          "phonetic": true,
+          "skeleton": true,
+          "code_mix": true
+        },
+        "model": "nblr",
+        "c": 1.0,
+        "min_df": 2
+      }
+    }
+  ],
+  "stage_3": [
+    {
+      "macro_f1": 0.6406863262044432,
+      "std": 0.007227223496746879,
+      "weighted_f1": 0.6374682190399356,
+      "spec": {
+        "name": "shipped_nblr",
+        "options": {
+          "hinglish": true,
+          "word_ngrams": [
+            1,
+            2
+          ],
+          "char_sizes": [
+            3,
+            4
+          ],
+          "negation": true,
+          "lexicon": true,
+          "raw_words": false,
+          "drop_noise": false,
+          "phonetic": true,
+          "skeleton": true,
+          "code_mix": true,
+          "mask_identity": true
+        },
+        "model": "nblr",
+        "c": 1.0,
+        "min_df": 2,
+        "alpha": 1.0,
+        "beta": 1.0,
+        "balanced": false
+      }
+    },
+    {
+      "macro_f1": 0.6305211170425765,
+      "std": 0.004649731861172816,
+      "weighted_f1": 0.6268681488299668,
+      "spec": {
+        "name": "nblr_alpha_0.1",
+        "options": {
+          "hinglish": true,
+          "word_ngrams": [
+            1,
+            2
+          ],
+          "char_sizes": [
+            3,
+            4
+          ],
+          "negation": true,
+          "lexicon": true,
+          "raw_words": false,
+          "drop_noise": false,
+          "phonetic": true,
+          "skeleton": true,
+          "code_mix": true,
+          "mask_identity": true
+        },
+        "model": "nblr",
+        "c": 1.0,
+        "min_df": 2,
+        "alpha": 0.1,
+        "beta": 1.0,
+        "balanced": false
+      }
+    },
+    {
+      "macro_f1": 0.6414507080006899,
+      "std": 0.006387975389521728,
+      "weighted_f1": 0.6382658986489753,
+      "spec": {
+        "name": "nblr_alpha_0.5",
+        "options": {
+          "hinglish": true,
+          "word_ngrams": [
+            1,
+            2
+          ],
+          "char_sizes": [
+            3,
+            4
+          ],
+          "negation": true,
+          "lexicon": true,
+          "raw_words": false,
+          "drop_noise": false,
+          "phonetic": true,
+          "skeleton": true,
+          "code_mix": true,
+          "mask_identity": true
+        },
+        "model": "nblr",
+        "c": 1.0,
+        "min_df": 2,
+        "alpha": 0.5,
+        "beta": 1.0,
+        "balanced": false
+      }
+    },
+    {
+      "macro_f1": 0.6375253306051057,
+      "std": 0.006669719096930952,
+      "weighted_f1": 0.6320370115757175,
+      "spec": {
+        "name": "nblr_balanced",
+        "options": {
+          "hinglish": true,
+          "word_ngrams": [
+            1,
+            2
+          ],
+          "char_sizes": [
+            3,
+            4
+          ],
+          "negation": true,
+          "lexicon": true,
+          "raw_words": false,
+          "drop_noise": false,
+          "phonetic": true,
+          "skeleton": true,
+          "code_mix": true,
+          "mask_identity": true
+        },
+        "model": "nblr",
+        "c": 1.0,
+        "min_df": 2,
+        "alpha": 1.0,
+        "beta": 1.0,
+        "balanced": true
+      }
+    },
+    {
+      "macro_f1": 0.6372055343976282,
+      "std": 0.004569329277509542,
+      "weighted_f1": 0.6358599681603125,
+      "spec": {
+        "name": "nblr_beta_0.75",
+        "options": {
+          "hinglish": true,
+          "word_ngrams": [
+            1,
+            2
+          ],
+          "char_sizes": [
+            3,
+            4
+          ],
+          "negation": true,
+          "lexicon": true,
+          "raw_words": false,
+          "drop_noise": false,
+          "phonetic": true,
+          "skeleton": true,
+          "code_mix": true,
+          "mask_identity": true
+        },
+        "model": "nblr",
+        "c": 1.0,
+        "min_df": 2,
+        "alpha": 1.0,
+        "beta": 0.75,
+        "balanced": false
+      }
+    },
+    {
+      "macro_f1": 0.6400758144279937,
+      "std": 0.005854318946064661,
+      "weighted_f1": 0.6368592850981403,
+      "spec": {
+        "name": "nblr_rich",
+        "options": {
+          "hinglish": true,
+          "word_ngrams": [
+            1,
+            2,
+            3
+          ],
+          "char_sizes": [
+            3,
+            4,
+            5
+          ],
+          "negation": true,
+          "lexicon": true,
+          "raw_words": false,
+          "drop_noise": false,
+          "phonetic": true,
+          "skeleton": true,
+          "code_mix": true,
+          "mask_identity": true
+        },
+        "model": "nblr",
+        "c": 1.0,
+        "min_df": 2,
+        "alpha": 1.0,
+        "beta": 1.0,
+        "balanced": false
+      }
+    },
+    {
+      "macro_f1": 0.6210979860903726,
+      "std": 0.012637229282656905,
+      "weighted_f1": 0.6195005415382615,
+      "spec": {
+        "name": "nbsvm_c0.01",
+        "options": {
+          "hinglish": true,
+          "word_ngrams": [
+            1,
+            2
+          ],
+          "char_sizes": [
+            3,
+            4
+          ],
+          "negation": true,
+          "lexicon": true,
+          "raw_words": false,
+          "drop_noise": false,
+          "phonetic": true,
+          "skeleton": true,
+          "code_mix": true,
+          "mask_identity": true
+        },
+        "model": "nbsvm",
+        "c": 0.01,
+        "min_df": 2,
+        "alpha": 1.0,
+        "beta": 1.0,
+        "balanced": false
+      }
+    },
+    {
+      "macro_f1": 0.634860063026911,
+      "std": 0.009582804633948616,
+      "weighted_f1": 0.6318232800630216,
+      "spec": {
+        "name": "nbsvm_c0.03",
+        "options": {
+          "hinglish": true,
+          "word_ngrams": [
+            1,
+            2
+          ],
+          "char_sizes": [
+            3,
+            4
+          ],
+          "negation": true,
+          "lexicon": true,
+          "raw_words": false,
+          "drop_noise": false,
+          "phonetic": true,
+          "skeleton": true,
+          "code_mix": true,
+          "mask_identity": true
+        },
+        "model": "nbsvm",
+        "c": 0.03,
+        "min_df": 2,
+        "alpha": 1.0,
+        "beta": 1.0,
+        "balanced": false
+      }
+    },
+    {
+      "macro_f1": 0.6412561369273235,
+      "std": 0.006779638254535429,
+      "weighted_f1": 0.6378210336471574,
+      "spec": {
+        "name": "nbsvm_c0.1",
+        "options": {
+          "hinglish": true,
+          "word_ngrams": [
+            1,
+            2
+          ],
+          "char_sizes": [
+            3,
+            4
+          ],
+          "negation": true,
+          "lexicon": true,
+          "raw_words": false,
+          "drop_noise": false,
+          "phonetic": true,
+          "skeleton": true,
+          "code_mix": true,
+          "mask_identity": true
+        },
+        "model": "nbsvm",
+        "c": 0.1,
+        "min_df": 2,
+        "alpha": 1.0,
+        "beta": 1.0,
+        "balanced": false
+      }
+    },
+    {
+      "macro_f1": 0.6296763315456125,
+      "std": 0.010145951271990528,
+      "weighted_f1": 0.628887883525811,
+      "spec": {
+        "name": "nbsvm_beta_0.75",
+        "options": {
+          "hinglish": true,
+          "word_ngrams": [
+            1,
+            2
+          ],
+          "char_sizes": [
+            3,
+            4
+          ],
+          "negation": true,
+          "lexicon": true,
+          "raw_words": false,
+          "drop_noise": false,
+          "phonetic": true,
+          "skeleton": true,
+          "code_mix": true,
+          "mask_identity": true
+        },
+        "model": "nbsvm",
+        "c": 0.03,
+        "min_df": 2,
+        "alpha": 1.0,
+        "beta": 0.75,
+        "balanced": false
+      }
+    },
+    {
+      "macro_f1": 0.6400258153574726,
+      "std": 0.008209481753761325,
+      "weighted_f1": 0.6361589817194285,
+      "spec": {
+        "name": "ensemble_4",
+        "options": {
+          "hinglish": true,
+          "word_ngrams": [
+            1,
+            2
+          ],
+          "char_sizes": [
+            3,
+            4
+          ],
+          "negation": true,
+          "lexicon": true,
+          "raw_words": false,
+          "drop_noise": false,
+          "phonetic": true,
+          "skeleton": true,
+          "code_mix": true,
+          "mask_identity": true
+        },
+        "model": "ensemble",
+        "c": 1.0,
+        "min_df": 2,
+        "alpha": 1.0,
+        "beta": 1.0,
+        "balanced": false
+      }
+    },
+    {
+      "macro_f1": 0.6405147790736265,
+      "std": 0.005884299653465367,
+      "weighted_f1": 0.6366958057431994,
+      "spec": {
+        "name": "ensemble_4_rich",
+        "options": {
+          "hinglish": true,
+          "word_ngrams": [
+            1,
+            2,
+            3
+          ],
+          "char_sizes": [
+            3,
+            4,
+            5
+          ],
+          "negation": true,
+          "lexicon": true,
+          "raw_words": false,
+          "drop_noise": false,
+          "phonetic": true,
+          "skeleton": true,
+          "code_mix": true,
+          "mask_identity": true
+        },
+        "model": "ensemble",
+        "c": 1.0,
+        "min_df": 2,
+        "alpha": 1.0,
+        "beta": 1.0,
+        "balanced": false
+      }
+    }
+  ]
+}
