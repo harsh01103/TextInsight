@@ -286,6 +286,6 @@ FUNCTION_WORDS_HINGLISH = frozenset(
     de do dena deta deti dete diya diye di mil mila mili mile milta milti milte
     chal chala chali chale chalta chalti chalte dekh dekha dekhi dekhna sakta sakti sakte
     chahiye wala wali wale apna apni apne unke unki inke inki kis kisi kuchh
-    yaar bhai dost
+    yaar bhai dost dono
     """.split()
 )

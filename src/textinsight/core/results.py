@@ -12,12 +12,17 @@ from typing import Any
 
 __all__ = [
     "SENTIMENT_LABELS",
+    "Aspect",
+    "AspectResult",
     "Keyword",
     "KeywordResult",
     "LanguageResult",
+    "PIIEntity",
+    "PIIResult",
     "Result",
     "SentimentResult",
     "SummaryResult",
+    "TextStats",
 ]
 
 SENTIMENT_LABELS = frozenset({"positive", "negative", "neutral", "mixed"})
@@ -104,3 +109,80 @@ class SummaryResult(Result):
     summary: str
     method: str
     sentence_indices: tuple[int, ...] = field(default_factory=tuple)
+
+
+@dataclass(frozen=True)
+class Aspect(Result):
+    """Sentiment towards one thing mentioned in a text, such as "camera"."""
+
+    name: str
+    label: str
+    score: float
+    mentions: int
+
+    def __post_init__(self) -> None:
+        if self.label not in SENTIMENT_LABELS:
+            raise ValueError(f"label must be one of {sorted(SENTIMENT_LABELS)}, got {self.label!r}")
+
+
+@dataclass(frozen=True)
+class AspectResult(Result):
+    """Aspects found in a text, most mentioned first."""
+
+    aspects: tuple[Aspect, ...]
+    method: str
+
+    @property
+    def labels(self) -> dict[str, str]:
+        """Each aspect name with its sentiment label."""
+        return {aspect.name: aspect.label for aspect in self.aspects}
+
+    def __iter__(self) -> Iterator[Aspect]:
+        return iter(self.aspects)
+
+    def __len__(self) -> int:
+        return len(self.aspects)
+
+
+@dataclass(frozen=True)
+class TextStats(Result):
+    """Counts and readability of a text.
+
+    ``flesch_reading_ease`` is ``None`` unless the text is English, because the
+    formula was designed for English. Higher scores mean easier text.
+    """
+
+    characters: int
+    words: int
+    sentences: int
+    unique_words: int
+    type_token_ratio: float
+    average_word_length: float
+    average_sentence_length: float
+    flesch_reading_ease: float | None
+    reading_time_seconds: float
+    language: str
+
+
+@dataclass(frozen=True)
+class PIIEntity(Result):
+    """One piece of personal information. Its value is left out of ``repr()``."""
+
+    kind: str
+    start: int
+    end: int
+    value: str = field(repr=False)
+
+
+@dataclass(frozen=True)
+class PIIResult(Result):
+    """Text with personal information replaced by placeholders such as ``[EMAIL]``."""
+
+    text: str
+    entities: tuple[PIIEntity, ...]
+
+    def __iter__(self) -> Iterator[PIIEntity]:
+        return iter(self.entities)
+
+    def __len__(self) -> int:
+        return len(self.entities)

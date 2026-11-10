@@ -1,0 +1,30 @@
+{
+  "CARD": {
+    "precision": 1.0,
+    "recall": 1.0
+  },
+  "AADHAAR": {
+    "precision": 1.0,
+    "recall": 1.0
+  },
+  "PHONE": {
+    "precision": 1.0,
+    "recall": 1.0
+  },
+  "PAN": {
+    "precision": 1.0,
+    "recall": 1.0
+  },
+  "EMAIL": {
+    "precision": 1.0,
+    "recall": 1.0
+  },
+  "UPI": {
+    "precision": 1.0,
+    "recall": 1.0
+  },
+  "URL": {
+    "precision": 1.0,
+    "recall": 1.0
+  }
+}
