@@ -1,5 +1,43 @@
 # Command line
 
+Every command has its own help, such as `textinsight keywords --help`. `python -m textinsight`
+works the same way as `textinsight`.
+
+```bash
+textinsight --help
+```
+
+```bash
+textinsight --version
+```
+
+## One text at a time
+
+```bash
+textinsight sentiment "yeh phone mast hai"
+```
+
+```bash
+textinsight aspects "camera mast hai but battery bekaar hai"
+```
+
+The task commands are `sentiment`, `aspects`, `keywords`, `summarize`, `stats`, `redact`,
+`language` and `clean`. Leave out the text to read lines from standard input, one text per
+line, and add `--json` for one JSON object per line:
+
+```bash
+textinsight sentiment --json < reviews.txt
+```
+
+## Versions and installed backends
+
+```bash
+textinsight info
+```
+
+In Python, `ti.show_versions()` prints the same details and `ti.info()` returns them as a
+dictionary. Include this output in bug reports.
+
 ## Analyse a file
 
 ```bash
