@@ -25,9 +25,11 @@ from .core import (
     config,
     list_backends,
 )
+from .keywords import keywords
 from .langid import detect_language
 from .preprocess import clean, normalize, normalize_hinglish, remove_stopwords, sentences, tokenize
 from .sentiment import sentiment
+from .summarize import summarize
 
 logging.getLogger(__name__).addHandler(logging.NullHandler())
 
@@ -50,11 +52,13 @@ __all__ = [
     "clean",
     "config",
     "detect_language",
+    "keywords",
     "list_backends",
     "normalize",
     "normalize_hinglish",
     "remove_stopwords",
     "sentences",
     "sentiment",
+    "summarize",
     "tokenize",
 ]

@@ -5,17 +5,34 @@ from __future__ import annotations
 import importlib
 import importlib.util
 from collections.abc import Callable, Sequence
+from statistics import fmean
 from typing import Any, cast
 
 from ..core.registry import get_backend
+from ..keywords import keywords
 from ..langid import HeuristicLanguageDetector, detect_language
+from ..preprocess import sentences as split_sentences
 from ..sentiment import sentiment
-from .datasets import Example
+from ..summarize import summarize
+from .datasets import Example, KeyphraseExample, SummaryExample
 from .metrics import classification_report
+from .text_metrics import keyphrase_scores, rouge_scores
 
-__all__ = ["DEFAULT_METHODS", "SENTIMENT_METHODS", "evaluate_language", "evaluate_sentiment"]
+__all__ = [
+    "DEFAULT_METHODS",
+    "KEYWORD_METHODS",
+    "SENTIMENT_METHODS",
+    "SUMMARY_METHODS",
+    "evaluate_keywords",
+    "evaluate_language",
+    "evaluate_sentiment",
+    "evaluate_summaries",
+]
 
 Predictor = Callable[[list[str]], list[str]]
+
+KEYWORD_METHODS = ("tfidf", "rake", "textrank")
+SUMMARY_METHODS = ("lead", "frequency", "textrank")
 
 _LABELS = ("negative", "neutral", "positive")
 _VADER_THRESHOLD = 0.05
@@ -118,3 +135,62 @@ def evaluate_language(examples: Sequence[Example]) -> dict[str, Any]:
             gold.append(truth)
             predicted.append(majority if guess in {"ambiguous", "other"} else guess)
     return classification_report(gold, predicted, ("en", "hi"))
+
+
+def evaluate_keywords(
+    examples: Sequence[KeyphraseExample],
+    methods: Sequence[str] = KEYWORD_METHODS,
+    cutoffs: Sequence[int] = (5, 10),
+) -> dict[str, dict[str, float]]:
+    """Mean precision, recall and F1 at each cutoff; all documents share an IDF table."""
+    texts = [example.text for example in examples]
+    report: dict[str, dict[str, float]] = {}
+    for method in methods:
+        predicted = keywords(texts, method=method, top_n=max(cutoffs), language="en")
+        scores: dict[str, float] = {}
+        for k in cutoffs:
+            rows = [
+                keyphrase_scores(result.texts, example.keyphrases, k)
+                for result, example in zip(predicted, examples, strict=True)
+            ]
+            for metric in ("precision", "recall", "f1"):
+                scores[f"{metric}@{k}"] = fmean(row[metric] for row in rows)
+        report[method] = scores
+    return report
+
+
+def _lead(article: str, count: int) -> str:
+    return " ".join(split_sentences(article)[:count])
+
+
+def evaluate_summaries(
+    examples: Sequence[SummaryExample],
+    methods: Sequence[str] = SUMMARY_METHODS,
+    sentences: int = 3,
+) -> dict[str, dict[str, float]]:
+    """Mean ROUGE F1 of ``sentences``-sentence summaries; ``lead`` is the first sentences."""
+    report: dict[str, dict[str, float]] = {}
+    for method in methods:
+        candidates = (
+            [_lead(example.article, sentences) for example in examples]
+            if method == "lead"
+            else [
+                result.summary
+                for result in summarize(
+                    [example.article for example in examples],
+                    ratio=1.0,
+                    max_sentences=sentences,
+                    method=method,
+                    language="en",
+                )
+            ]
+        )
+        rows = [
+            rouge_scores(candidate, example.reference)
+            for candidate, example in zip(candidates, examples, strict=True)
+        ]
+        report[method] = {
+            name: fmean(row[name]["f1"] for row in rows)
+            for name in ("rouge-1", "rouge-2", "rouge-l")
+        }
+    return report

@@ -34,6 +34,12 @@ ti.detect_language("yeh phone mast hai but battery bekaar").language  # 'hi-en'
 ti.sentiment("bahut accha product hai")  # SentimentResult(label='positive', ...)
 ti.sentiment("yeh accha nahi hai", backend="lexicon")  # handles Hindi negation
 
+doc = (
+    "Phone ki battery life acchi hai. Camera quality bhi mast hai. Battery life do din chalti hai."
+)
+ti.keywords(doc, top_n=2).texts  # ['battery life', 'camera quality']
+ti.summarize(doc, max_sentences=1).summary  # the most representative sentence
+
 ti.list_backends()  # registered backends
 ti.config.offline = True  # never download models
 ```
@@ -71,6 +77,29 @@ To reproduce them, install the `training` extra, download the dataset and run:
 textinsight benchmark sentiment --data-dir path/to/Hinglish --split test
 ```
 
+### Keywords and summaries
+
+Keywords on the [Inspec](https://aclanthology.org/W03-1028/) test split (500 abstracts):
+
+| Method | Precision@10 | Recall@10 | F1@10 |
+|---|---|---|---|
+| TF-IDF | 0.249 | 0.297 | 0.255 |
+| RAKE | 0.253 | 0.302 | 0.259 |
+| **TextRank** (default) | **0.275** | **0.318** | **0.278** |
+
+Summaries on the CNN/DailyMail test split (11,490 articles, three sentences each):
+
+| Method | ROUGE-1 F1 | ROUGE-2 F1 | ROUGE-L F1 |
+|---|---|---|---|
+| Lead-3 (first three sentences) | 0.402 | 0.175 | 0.251 |
+| **TextRank** (default) | 0.378 | 0.158 | 0.241 |
+| Frequency | 0.320 | 0.113 | 0.212 |
+
+TextRank does not beat Lead-3 on news, where the main facts come first. On 20 hand-written
+Hinglish paragraphs, TextRank keywords scored 0.375 F1 at 5 keywords, against 0.279 without
+Hinglish handling. That set is small and not independent. See the
+[method card](docs/model_cards/keywords_summarize.md).
+
 ## Most accurate option
 
 ```bash
@@ -87,7 +116,8 @@ First use downloads the 438 MB HingBERT encoder, so `hybrid` runs only when you 
 
 The bundled sentiment model derives from SentiMix (CC-BY-4.0): Patwa et al., "SemEval-2020
 Task 9: Overview of Sentiment Analysis of Code-Mixed Tweets", SemEval-2020. The `hybrid` backend
-uses HingBERT (CC-BY-4.0): Joshi, "L3Cube-HingCorpus and HingBERT", 2022.
+uses HingBERT (CC-BY-4.0): Joshi, "L3Cube-HingCorpus and HingBERT", 2022. Benchmarks use Inspec
+(Hulth, 2003) and CNN/DailyMail (Hermann et al., 2015), which are not redistributed here.
 
 ## Planned features
 

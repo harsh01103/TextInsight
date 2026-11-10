@@ -85,3 +85,19 @@ ENGLISH_COMMON = frozenset(
     we're we've it's that's there's what's let's he's she's
     """.split()
 )
+
+# Common verbs, quantities and research-writing words that rarely name a topic.
+# Keywords and summaries ignore them; removing them is not safe for every task.
+GENERIC_WORDS_EN = frozenset(
+    """
+    using used use uses based given shown show shows make makes made new high low large
+    small different various several many much first second third one two three four five
+    also may can could would however thus paper present presents presented proposed
+    propose proposes results result study studies approach method methods problem problems
+    """.split()
+)
+
+# Nouns ending in "-ly", which would otherwise be mistaken for adverbs.
+LY_NOUNS = frozenset(
+    "family assembly supply reply italy july anomaly monopoly rally ally belly jelly".split()
+)
