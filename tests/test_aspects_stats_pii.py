@@ -98,7 +98,7 @@ class TestAspects:
             ti.aspects("some text", min_mentions=value)  # type: ignore[call-overload]
 
     def test_listed(self) -> None:
-        assert {b.name for b in ti.list_backends("aspects")} == {"rules"}
+        assert {b.name for b in ti.list_backends("aspects")} == {"rules", "llm"}
 
     def test_backend_can_be_called_directly(self) -> None:
         assert RuleAspects()(["camera mast hai"])[0].labels == {"camera": "positive"}

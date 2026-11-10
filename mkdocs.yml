@@ -1,0 +1,39 @@
+site_name: TextInsight
+site_description: Lightweight, offline-first NLP for English and Hinglish text
+repo_url: https://github.com/harsh01103/TextInsight
+repo_name: harsh01103/TextInsight
+theme:
+  name: material
+  features:
+    - content.code.copy
+    - navigation.sections
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      toggle:
+        icon: material/weather-night
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to light mode
+markdown_extensions:
+  - admonition
+  - tables
+  - pymdownx.superfences
+nav:
+  - Home: index.md
+  - Quickstart: quickstart.md
+  - Guides:
+      - Hinglish: guides/hinglish.md
+      - Analysing many texts: guides/analyze.md
+      - Command line: guides/cli.md
+      - pandas and scikit-learn: guides/integrations.md
+  - Backends: backends.md
+  - API reference: api.md
+  - Benchmarks: benchmarks.md
+  - Model cards:
+      - Sentiment: model_cards/sentiment_classical.md
+      - Keywords and summaries: model_cards/keywords_summarize.md
+      - Aspects, stats and PII: model_cards/aspects_stats_pii.md

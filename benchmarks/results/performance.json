@@ -1,0 +1,11 @@
+{
+  "texts": 10000,
+  "cold_start_import_seconds": 0.537,
+  "texts_per_second": {
+    "no_repeats_cache_off": 338.9,
+    "no_repeats_cache_on": 343.6,
+    "half_repeats_cache_off": 354.0,
+    "half_repeats_cache_on": 715.4
+  },
+  "peak_python_memory_mb": 17.4
+}

@@ -9,6 +9,7 @@ import logging
 from ._version import __version__
 from .aspects import aspects
 from .core import (
+    Analysis,
     Aspect,
     AspectResult,
     BackendInfo,
@@ -19,6 +20,7 @@ from .core import (
     Keyword,
     KeywordResult,
     LanguageResult,
+    LLMError,
     ModelDownloadError,
     PIIEntity,
     PIIResult,
@@ -34,7 +36,9 @@ from .core import (
 from .keywords import keywords
 from .langid import detect_language
 from .pii import redact
+from .pipeline import Pipeline, analyze
 from .preprocess import clean, normalize, normalize_hinglish, remove_stopwords, sentences, tokenize
+from .report import Report
 from .sentiment import sentiment
 from .stats import stats
 from .summarize import summarize
@@ -42,6 +46,7 @@ from .summarize import summarize
 logging.getLogger(__name__).addHandler(logging.NullHandler())
 
 __all__ = [
+    "Analysis",
     "Aspect",
     "AspectResult",
     "BackendInfo",
@@ -51,10 +56,13 @@ __all__ = [
     "InvalidInputError",
     "Keyword",
     "KeywordResult",
+    "LLMError",
     "LanguageResult",
     "ModelDownloadError",
     "PIIEntity",
     "PIIResult",
+    "Pipeline",
+    "Report",
     "SentimentResult",
     "SummaryResult",
     "TextInsightError",
@@ -62,6 +70,7 @@ __all__ = [
     "UnknownBackendError",
     "UnsupportedLanguageError",
     "__version__",
+    "analyze",
     "aspects",
     "clean",
     "config",

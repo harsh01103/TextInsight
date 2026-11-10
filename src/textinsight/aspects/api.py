@@ -35,7 +35,8 @@ def aspects(
     Args:
         text: A string (returns one result) or a list of strings (returns a list).
         min_mentions: Ignore aspects mentioned fewer times than this in a text.
-        method: ``"auto"`` or ``"rules"``.
+        method: ``"auto"``, ``"rules"``, or ``"llm"`` (needs the ``llm`` extra and
+            sends your text to Anthropic).
         language: Skip detection and treat all input as this language code.
 
     Raises:

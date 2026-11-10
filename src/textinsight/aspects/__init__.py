@@ -2,5 +2,6 @@
 
 from .api import aspects
 from .extractor import RuleAspects
+from .llm import LLMAspects
 
-__all__ = ["RuleAspects", "aspects"]
+__all__ = ["LLMAspects", "RuleAspects", "aspects"]

@@ -6,6 +6,7 @@ from .exceptions import (
     BackendNotAvailableError,
     ConfigError,
     InvalidInputError,
+    LLMError,
     ModelDownloadError,
     TextInsightError,
     UnknownBackendError,
@@ -22,6 +23,7 @@ from .registry import (
 )
 from .results import (
     SENTIMENT_LABELS,
+    Analysis,
     Aspect,
     AspectResult,
     Keyword,
@@ -39,6 +41,7 @@ __all__ = [
     "ANY_LANGUAGE",
     "AUTO",
     "SENTIMENT_LABELS",
+    "Analysis",
     "Aspect",
     "AspectResult",
     "Backend",
@@ -49,6 +52,7 @@ __all__ = [
     "InvalidInputError",
     "Keyword",
     "KeywordResult",
+    "LLMError",
     "LanguageResult",
     "ModelDownloadError",
     "ModelManager",

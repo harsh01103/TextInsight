@@ -48,7 +48,8 @@ def summarize(
         ratio: Share of sentences to keep, above 0 and at most 1. At least one
             sentence is always kept.
         max_sentences: Upper limit on the sentences kept, whatever ``ratio`` says.
-        method: ``"auto"``, ``"textrank"`` or ``"frequency"``.
+        method: ``"auto"``, ``"textrank"``, ``"frequency"``, or ``"abstractive"`` for
+            English summaries written by a model (needs the ``transformers`` extra).
         language: Skip detection and treat all input as this language code.
 
     Raises:

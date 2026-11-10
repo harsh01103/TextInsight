@@ -14,6 +14,7 @@ __all__ = [
     "BackendNotAvailableError",
     "ConfigError",
     "InvalidInputError",
+    "LLMError",
     "ModelDownloadError",
     "TextInsightError",
     "UnknownBackendError",
@@ -69,3 +70,7 @@ class BackendNotAvailableError(TextInsightError, ImportError):
 
 class ModelDownloadError(TextInsightError, OSError):
     """A model could not be downloaded, failed verification, or offline mode blocked it."""
+
+
+class LLMError(TextInsightError):
+    """A request to a language model failed or returned an unusable answer."""

@@ -43,6 +43,12 @@ transformers = [
     "torch>=2.2",
     "transformers>=4.40",
 ]
+pandas = ["pandas>=2.2"]
+onnx = ["onnxruntime>=1.18", "tokenizers>=0.19"]
+llm = ["anthropic>=2.0"]
+docs = ["mkdocs-material>=9.5"]
+demo = ["streamlit>=1.40"]
+sklearn = ["scikit-learn>=1.5"]
 training = [
     "scikit-learn>=1.5",
     "vaderSentiment>=3.3.2",
@@ -106,5 +112,5 @@ strict = true
 warn_unreachable = true
 
 [[tool.mypy.overrides]]
-module = ["torch", "transformers", "pyarrow.*"]
+module = ["torch", "transformers", "pyarrow.*", "pandas", "sklearn.*", "numpy", "onnxruntime", "tokenizers", "anthropic"]
 ignore_missing_imports = true
