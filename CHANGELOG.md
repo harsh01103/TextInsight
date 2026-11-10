@@ -19,6 +19,12 @@ and the project uses [Semantic Versioning](https://semver.org/).
   aspects using Claude.
 - A side-by-side benchmark of every backend, a documentation site, a Streamlit demo, a
   contributing guide and issue templates.
+- Command-line tasks: `textinsight sentiment`, `aspects`, `keywords`, `summarize`, `stats`,
+  `redact`, `language` and `clean`, reading from arguments or standard input, with `--json`.
+- `textinsight -V`, `textinsight info`, `python -m textinsight`, and `ti.info()` and
+  `ti.show_versions()` for bug reports.
+- `SECURITY.md`, `CODE_OF_CONDUCT.md`, `CITATION.cff`, a pull request template, Dependabot,
+  examples, more PyPI links, and an `all` extra.
 
 ## [0.2.0] - 2026-11-10
 

@@ -145,6 +145,18 @@ uses HingBERT (CC-BY-4.0): Joshi, "L3Cube-HingCorpus and HingBERT", 2022. Benchm
 ## Command line
 
 ```bash
+textinsight sentiment "yeh phone mast hai"
+```
+
+```bash
+textinsight --help
+```
+
+Commands: `sentiment`, `aspects`, `keywords`, `summarize`, `stats`, `redact`, `language`,
+`clean`, `analyze`, `info`, `models` and `benchmark`. Run `textinsight --version` or
+`textinsight info` to see versions and installed backends.
+
+```bash
 textinsight analyze reviews.csv --column review --tasks sentiment,aspects,keywords --out report.html
 ```
 
