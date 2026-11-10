@@ -8,6 +8,7 @@ import pytest
 
 import textinsight as ti
 from textinsight import cli, pipeline
+from textinsight.core.models import models
 from textinsight.report.loading import read_texts
 
 REVIEWS = [
@@ -276,7 +277,7 @@ class TestCli:
     def test_models_list_shows_files(
         self, capsys: pytest.CaptureFixture[str], tmp_path: Path
     ) -> None:
-        with patch("textinsight.core.models.models.list_cached", return_value=[tmp_path / "m"]):
+        with patch.object(models, "list_cached", return_value=[tmp_path / "m"]):
             assert cli.main(["models", "list"]) == 0
         assert str(tmp_path / "m") in capsys.readouterr().out
 
