@@ -1,0 +1,13 @@
+{
+  "reviews": 20,
+  "aspects": {
+    "precision": 0.929,
+    "recall": 0.897,
+    "f1": 0.912
+  },
+  "aspects_with_sentiment": {
+    "precision": 0.893,
+    "recall": 0.862,
+    "f1": 0.877
+  }
+}

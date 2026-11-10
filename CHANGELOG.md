@@ -4,6 +4,14 @@ All notable changes to this project are documented here.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and the project uses [Semantic Versioning](https://semver.org/).
 
+## [Unreleased]
+
+### Added
+- `aspects()`: sentiment per aspect for English and Hinglish, with `AspectResult`.
+- `stats()`: counts, type-token ratio, reading time and Flesch reading ease, with `TextStats`.
+- `redact()`: finds URLs, emails, UPI IDs, PAN, cards (Luhn), Aadhaar (Verhoeff) and phone
+  numbers, with `PIIResult`.
+
 ## [0.2.0] - 2026-11-10
 
 ### Added

@@ -1,0 +1,40 @@
+camera mast hai but battery bekaar hai	camera:positive|battery:negative
+phone ki battery life bahut acchi hai	battery life:positive
+khana swaadisht tha lekin service bahut slow thi	khana:positive|service:negative
+The camera is excellent but the battery drains fast	camera:positive|battery:negative
+screen bahut badhiya hai aur sound bhi zabardast hai	screen:positive|sound:positive
+room saaf tha par staff rude tha	room:positive|staff:negative
+The food was delicious and the staff were friendly	food:positive|staff:positive
+acting achi thi lekin story bakwaas thi	acting:positive|story:negative
+delivery late aayi aur packing kharab thi	delivery:negative|packing:negative
+Great display, terrible speakers	display:positive|speakers:negative
+laptop ki speed mast hai	speed:positive
+keyboard accha nahi hai	keyboard:negative
+The price is too high but the quality is amazing	price:negative|quality:positive
+hotel ka location shandaar hai lekin breakfast ghatiya tha	location:positive|breakfast:negative
+Battery life is awful	battery life:negative
+music badhiya tha par dance boring tha	music:positive|dance:negative
+The service was slow and the waiter was rude	service:negative|waiter:negative
+customer care bahut bura hai	customer care:negative
+kapda soft hai aur fitting perfect hai	kapda:positive|fitting:positive
+The story is boring but the visuals are stunning	story:negative|visuals:positive
+app ka interface accha hai lekin ads bahut pareshan karte hain	interface:positive|ads:negative
+I love the design but hate the software	design:positive|software:negative
+biryani lajawab thi aur raita bhi accha tha	biryani:positive|raita:positive
+The seats are comfortable	seats:positive
+charger kharab hai	charger:negative
+Good camera and excellent battery	camera:positive|battery:positive
+wifi bahut slow hai but hotel ka pool sundar hai	wifi:negative|pool:positive
+The interface is confusing	interface:negative
+gaane acche hain lekin direction kamzor hai	gaane:positive|direction:negative
+Delivery was quick but the box was damaged	delivery:positive|box:negative
+yeh phone kal launch hoga
+main abhi office ja raha hoon
+The train leaves at noon
+Bahar baarish ho rahi hai
+display ki brightness kam hai par colours acche hain	brightness:negative|colours:positive
+The hotel room was dirty	hotel room:negative
+paneer tikka mast tha	paneer tikka:positive
+Terrible customer service	customer service:negative
+bike ka mileage accha hai	mileage:positive
+The headphones are great but the cable is weak	headphones:positive|cable:negative

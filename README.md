@@ -40,6 +40,12 @@ doc = (
 ti.keywords(doc, top_n=2).texts  # ['battery life', 'camera quality']
 ti.summarize(doc, max_sentences=1).summary  # the most representative sentence
 
+ti.aspects("camera mast hai but battery bekaar hai").labels
+# {'camera': 'positive', 'battery': 'negative'}
+ti.stats(doc).words  # also readability, diversity and reading time
+ti.redact("Mail a.b@example.com or call 9876543210").text
+# 'Mail [EMAIL] or call [PHONE]'
+
 ti.list_backends()  # registered backends
 ti.config.offline = True  # never download models
 ```
@@ -99,6 +105,15 @@ TextRank does not beat Lead-3 on news, where the main facts come first. On 20 ha
 Hinglish paragraphs, TextRank keywords scored 0.375 F1 at 5 keywords, against 0.279 without
 Hinglish handling. That set is small and not independent. See the
 [method card](docs/model_cards/keywords_summarize.md).
+
+### Aspects and PII
+
+On 20 hand-written reviews in English and Hinglish, `aspects()` found the right aspect and
+sentiment with 0.877 F1. PII rules scored 1.0 precision and recall on generated values, which
+only shows that they work on the formats they were written for. Neither is an independent
+benchmark. See the [method card](docs/model_cards/aspects_stats_pii.md) for known limits:
+for example, `redact()` cannot find names, and treats any 10-digit number starting with 6 to 9
+as a phone number.
 
 ## Most accurate option
 

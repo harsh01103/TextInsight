@@ -7,7 +7,10 @@ connections. Models are fetched lazily the first time a backend needs them.
 import logging
 
 from ._version import __version__
+from .aspects import aspects
 from .core import (
+    Aspect,
+    AspectResult,
     BackendInfo,
     BackendNotAvailableError,
     Config,
@@ -17,9 +20,12 @@ from .core import (
     KeywordResult,
     LanguageResult,
     ModelDownloadError,
+    PIIEntity,
+    PIIResult,
     SentimentResult,
     SummaryResult,
     TextInsightError,
+    TextStats,
     UnknownBackendError,
     UnsupportedLanguageError,
     config,
@@ -27,13 +33,17 @@ from .core import (
 )
 from .keywords import keywords
 from .langid import detect_language
+from .pii import redact
 from .preprocess import clean, normalize, normalize_hinglish, remove_stopwords, sentences, tokenize
 from .sentiment import sentiment
+from .stats import stats
 from .summarize import summarize
 
 logging.getLogger(__name__).addHandler(logging.NullHandler())
 
 __all__ = [
+    "Aspect",
+    "AspectResult",
     "BackendInfo",
     "BackendNotAvailableError",
     "Config",
@@ -43,12 +53,16 @@ __all__ = [
     "KeywordResult",
     "LanguageResult",
     "ModelDownloadError",
+    "PIIEntity",
+    "PIIResult",
     "SentimentResult",
     "SummaryResult",
     "TextInsightError",
+    "TextStats",
     "UnknownBackendError",
     "UnsupportedLanguageError",
     "__version__",
+    "aspects",
     "clean",
     "config",
     "detect_language",
@@ -56,9 +70,11 @@ __all__ = [
     "list_backends",
     "normalize",
     "normalize_hinglish",
+    "redact",
     "remove_stopwords",
     "sentences",
     "sentiment",
+    "stats",
     "summarize",
     "tokenize",
 ]
