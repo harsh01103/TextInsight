@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import sys
 from collections.abc import Sequence
 from pathlib import Path
 from typing import Any
@@ -28,6 +29,15 @@ def _build_parser() -> argparse.ArgumentParser:
         action="store_true",
         help="also run the hybrid backend (may download a 438 MB model)",
     )
+
+    analyze = commands.add_parser("analyze", help="analyse a CSV, JSON-lines or text file")
+    analyze.add_argument("file", type=Path)
+    analyze.add_argument("--column", help="the text column in a CSV or JSON-lines file")
+    analyze.add_argument("--tasks", default="sentiment,keywords,aspects", help="comma-separated")
+    analyze.add_argument("--out", type=Path, help="write a report, as .html or .json")
+
+    model_command = commands.add_parser("models", help="manage cached model files")
+    model_command.add_argument("action", choices=["list", "clear"])
     return parser
 
 
@@ -82,9 +92,54 @@ def _run_labels(args: argparse.Namespace) -> dict[str, Any]:
     return report
 
 
+def _analyze(args: argparse.Namespace) -> int:
+    from .core.exceptions import InvalidInputError
+    from .pipeline import analyze
+    from .report.loading import read_texts
+
+    suffix = args.out.suffix.lower() if args.out else ""
+    if args.out and suffix not in {".html", ".json"}:
+        print("error: --out must end in .html or .json", file=sys.stderr)
+        return 2
+    try:
+        texts = read_texts(args.file, args.column)
+        report = analyze(texts, [task.strip() for task in args.tasks.split(",") if task.strip()])
+    except (OSError, InvalidInputError) as error:
+        print(f"error: {error}", file=sys.stderr)
+        return 2
+
+    summary = report.summary()
+    print(f"Analysed {summary['documents']} documents")
+    if args.out is None:
+        print(json.dumps(summary, indent=2, ensure_ascii=False))
+    elif suffix == ".html":
+        report.to_html(args.out)
+    else:
+        report.to_json(args.out)
+    if args.out:
+        print(f"Wrote {args.out}")
+    return 0
+
+
+def _models(args: argparse.Namespace) -> int:
+    from .core.models import models
+
+    if args.action == "clear":
+        models.clear()
+        print("Cleared the model cache.")
+        return 0
+    cached = models.list_cached()
+    print("\n".join(str(path) for path in cached) if cached else "No cached model files.")
+    return 0
+
+
 def main(argv: Sequence[str] | None = None) -> int:
     """Entry point for the ``textinsight`` command."""
     args = _build_parser().parse_args(argv)
+    if args.command == "analyze":
+        return _analyze(args)
+    if args.command == "models":
+        return _models(args)
     report = _run_scores(args) if args.task in {"keywords", "summarize"} else _run_labels(args)
 
     if args.out:

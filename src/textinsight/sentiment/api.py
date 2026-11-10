@@ -28,7 +28,8 @@ def sentiment(
 
     Args:
         text: A string (returns one result) or a list of strings (returns a list).
-        backend: ``"auto"``, ``"lexicon"``, ``"classical"`` or ``"hybrid"``. With
+        backend: ``"auto"``, ``"lexicon"``, ``"classical"``, ``"hybrid"``, ``"onnx"``
+            (English only) or ``"llm"`` (sends your text to Anthropic). With
             ``"auto"``, each text goes to the best bundled backend for its language.
             ``"hybrid"`` is the most accurate but needs the ``transformers`` extra.
         language: Skip detection and treat all input as this language code.

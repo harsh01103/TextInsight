@@ -1,0 +1,23 @@
+{
+  "frequency": {
+    "rouge_1_f1": 0.2558,
+    "rouge_2_f1": 0.0723,
+    "rouge_l_f1": 0.177,
+    "texts_per_second": 261.33,
+    "peak_memory_mb": 365.6
+  },
+  "textrank": {
+    "rouge_1_f1": 0.2821,
+    "rouge_2_f1": 0.1024,
+    "rouge_l_f1": 0.1948,
+    "texts_per_second": 220.28,
+    "peak_memory_mb": 369.1
+  },
+  "abstractive": {
+    "rouge_1_f1": 0.3161,
+    "rouge_2_f1": 0.1172,
+    "rouge_l_f1": 0.2335,
+    "texts_per_second": 0.31,
+    "peak_memory_mb": 1323.4
+  }
+}

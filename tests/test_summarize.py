@@ -99,7 +99,7 @@ class TestSummarize:
             ti.summarize("Some text.", max_sentences=limit)  # type: ignore[call-overload]
 
     def test_backends_are_listed(self) -> None:
-        assert {b.name for b in ti.list_backends("summarize")} == set(METHODS)
+        assert {b.name for b in ti.list_backends("summarize")} == {*METHODS, "abstractive"}
 
     def test_backend_can_be_called_directly(self) -> None:
         assert TextRankSummarizer()([ARTICLE])[0].summary

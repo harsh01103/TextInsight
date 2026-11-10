@@ -2,8 +2,13 @@
 
 **Lightweight, offline-first NLP for English and Hinglish text, with pluggable backends.**
 
-> Status: alpha. Preprocessing, language detection and sentiment work; other tasks arrive in upcoming releases.
-> See `TextInsight_Architecture_and_Roadmap.docx` for the full plan.
+[![CI](https://github.com/harsh01103/TextInsight/actions/workflows/ci.yml/badge.svg)](https://github.com/harsh01103/TextInsight/actions/workflows/ci.yml)
+[![PyPI](https://img.shields.io/pypi/v/textinsight-nlp)](https://pypi.org/project/textinsight-nlp/)
+[![Python](https://img.shields.io/pypi/pyversions/textinsight-nlp)](https://pypi.org/project/textinsight-nlp/)
+![Coverage](https://img.shields.io/badge/coverage-99%25-brightgreen)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue)](LICENSE)
+
+Documentation: [docs/](docs/index.md) (build it with `mkdocs serve`). Demo app: [demo/](demo/).
 
 ## Why TextInsight?
 
@@ -45,6 +50,9 @@ ti.aspects("camera mast hai but battery bekaar hai").labels
 ti.stats(doc).words  # also readability, diversity and reading time
 ti.redact("Mail a.b@example.com or call 9876543210").text
 # 'Mail [EMAIL] or call [PHONE]'
+
+report = ti.analyze(reviews, tasks=["sentiment", "aspects", "keywords"])
+report.to_html("report.html")  # one self-contained file
 
 ti.list_backends()  # registered backends
 ti.config.offline = True  # never download models
@@ -134,14 +142,24 @@ Task 9: Overview of Sentiment Analysis of Code-Mixed Tweets", SemEval-2020. The 
 uses HingBERT (CC-BY-4.0): Joshi, "L3Cube-HingCorpus and HingBERT", 2022. Benchmarks use Inspec
 (Hulth, 2003) and CNN/DailyMail (Hermann et al., 2015), which are not redistributed here.
 
-## Planned features
+## Command line
 
-| Release | Features |
-|---|---|
-| 0.1.0 | Preprocessing, language ID, English + Hinglish sentiment, benchmarks |
-| 0.2.0 | Keywords (TF-IDF, RAKE, TextRank), extractive summarization |
-| 0.3.0 | Aspect sentiment, text stats, PII redaction, `analyze()`, CLI, pandas |
-| 1.0.0 | Optional ONNX / transformer / LLM backends, docs site, live demo |
+```bash
+textinsight analyze reviews.csv --column review --tasks sentiment,aspects,keywords --out report.html
+```
+
+## Optional backends
+
+| Backend | Install | Use |
+|---|---|---|
+| `hybrid` sentiment | `textinsight-nlp[transformers]` | Most accurate on Hinglish; downloads 438 MB |
+| `onnx` sentiment | `textinsight-nlp[onnx]` | Fast English-only model; downloads 68 MB |
+| `abstractive` summaries | `textinsight-nlp[transformers]` | Writes new English sentences; downloads 242 MB |
+| `llm` sentiment and aspects | `textinsight-nlp[llm]` | Uses Claude; sends your text to Anthropic and needs your own API access |
+| pandas and scikit-learn | `textinsight-nlp[pandas]`, `textinsight-nlp[sklearn]` | `df["review"].ti.sentiment()` and a feature transformer |
+
+None of these run unless you ask for them by name. The trade-offs are measured in
+[docs/backends.md](docs/backends.md).
 
 ## Development
 

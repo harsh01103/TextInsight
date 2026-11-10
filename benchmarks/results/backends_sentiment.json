@@ -1,0 +1,30 @@
+{
+  "lexicon": {
+    "macro_f1": 0.5403,
+    "weighted_f1": 0.5461,
+    "load_seconds": 0.0,
+    "texts_per_second": 5055.7,
+    "peak_memory_mb": 76.5
+  },
+  "classical": {
+    "macro_f1": 0.7065,
+    "weighted_f1": 0.7034,
+    "load_seconds": 0.17,
+    "texts_per_second": 572.0,
+    "peak_memory_mb": 76.5
+  },
+  "hybrid": {
+    "macro_f1": 0.7282,
+    "weighted_f1": 0.7251,
+    "load_seconds": 25.65,
+    "texts_per_second": 9.2,
+    "peak_memory_mb": 1062.7
+  },
+  "onnx": {
+    "macro_f1": 0.4855,
+    "weighted_f1": 0.4777,
+    "load_seconds": 0.98,
+    "texts_per_second": 76.6,
+    "peak_memory_mb": 343.3
+  }
+}

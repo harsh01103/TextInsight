@@ -11,6 +11,14 @@ and the project uses [Semantic Versioning](https://semver.org/).
 - `stats()`: counts, type-token ratio, reading time and Flesch reading ease, with `TextStats`.
 - `redact()`: finds URLs, emails, UPI IDs, PAN, cards (Luhn), Aadhaar (Verhoeff) and phone
   numbers, with `PIIResult`.
+- `analyze()` and `Pipeline`: run several tasks over many texts, sharing language detection and
+  skipping repeated texts, with JSON and self-contained HTML reports.
+- `textinsight analyze` and `textinsight models` commands.
+- A pandas accessor and a scikit-learn feature transformer.
+- Optional backends: `onnx` English sentiment, `abstractive` summaries, and `llm` sentiment and
+  aspects using Claude.
+- A side-by-side benchmark of every backend, a documentation site, a Streamlit demo, a
+  contributing guide and issue templates.
 
 ## [0.2.0] - 2026-11-10
 

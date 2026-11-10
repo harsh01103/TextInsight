@@ -12,6 +12,7 @@ from typing import Any
 
 __all__ = [
     "SENTIMENT_LABELS",
+    "Analysis",
     "Aspect",
     "AspectResult",
     "Keyword",
@@ -186,3 +187,21 @@ class PIIResult(Result):
 
     def __len__(self) -> int:
         return len(self.entities)
+
+
+@dataclass(frozen=True)
+class Analysis(Result):
+    """Everything :func:`textinsight.analyze` found in one text.
+
+    A field is ``None`` if its task was not requested or is listed in ``skipped``.
+    """
+
+    text: str
+    language: str
+    sentiment: SentimentResult | None = None
+    aspects: AspectResult | None = None
+    keywords: KeywordResult | None = None
+    summary: SummaryResult | None = None
+    stats: TextStats | None = None
+    pii: PIIResult | None = None
+    skipped: tuple[str, ...] = ()
