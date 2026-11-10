@@ -3,7 +3,7 @@ requires = ["hatchling>=1.27"]
 build-backend = "hatchling.build"
 
 [project]
-name = "textinsight"
+name = "textinsight-nlp"
 dynamic = ["version"]
 description = "Lightweight, offline-first NLP for English and Hinglish text, with pluggable backends."
 readme = "README.md"

@@ -16,10 +16,10 @@
 ## Installation
 
 ```bash
-pip install textinsight
+pip install textinsight-nlp
 ```
 
-(Not yet published. For development, see below.)
+The package installs as `textinsight-nlp` and is imported as `textinsight`.
 
 ## Quick start
 
@@ -74,7 +74,7 @@ textinsight benchmark sentiment --data-dir path/to/Hinglish --split test
 ## Most accurate option
 
 ```bash
-pip install "textinsight[transformers]"
+pip install "textinsight-nlp[transformers]"
 ```
 
 ```python
@@ -93,7 +93,7 @@ uses HingBERT (CC-BY-4.0): Joshi, "L3Cube-HingCorpus and HingBERT", 2022.
 
 | Release | Features |
 |---|---|
-| 0.1.0 | Preprocessing, language ID, English + Hinglish sentiment, benchmarks (ready, not yet published) |
+| 0.1.0 | Preprocessing, language ID, English + Hinglish sentiment, benchmarks |
 | 0.2.0 | Keywords (TF-IDF, RAKE, TextRank), extractive summarization |
 | 0.3.0 | Aspect sentiment, text stats, PII redaction, `analyze()`, CLI, pandas |
 | 1.0.0 | Optional ONNX / transformer / LLM backends, docs site, live demo |

@@ -96,7 +96,7 @@ def test_auto_reports_best_missing_backend_when_none_available() -> None:
         _make("onnx", priority=5, requires=("module_that_does_not_exist_xyz",), extra="onnx")
     )
     with pytest.raises(
-        BackendNotAvailableError, match=r'pip install "textinsight\[onnx\]"'
+        BackendNotAvailableError, match=r'pip install "textinsight-nlp\[onnx\]"'
     ) as info:
         get_backend("sentiment")
     assert info.value.missing == ("module_that_does_not_exist_xyz",)
