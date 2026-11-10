@@ -4,9 +4,9 @@ Three-way sentiment (negative, neutral, positive) for informal Hinglish and Engl
 
 | Backend | How to get it | Size | What it is |
 |---|---|---|---|
-| `classical` (default) | `pip install textinsight` | 529 KB, in the package | NB-LR over word, character and Hinglish spelling features, run in plain Python |
-| `hybrid` | `pip install "textinsight[transformers]"`, then `backend="hybrid"` | 12 KB in the package, plus a 438 MB encoder downloaded on first use | 50/50 blend of `classical` and a classifier on HingBERT embeddings |
-| `lexicon` | `pip install textinsight` | Word lists | Rules, with Hindi post-word negation ("accha nahi") |
+| `classical` (default) | `pip install textinsight-nlp` | 529 KB, in the package | NB-LR over word, character and Hinglish spelling features, run in plain Python |
+| `hybrid` | `pip install "textinsight-nlp[transformers]"`, then `backend="hybrid"` | 12 KB in the package, plus a 438 MB encoder downloaded on first use | 50/50 blend of `classical` and a classifier on HingBERT embeddings |
+| `lexicon` | `pip install textinsight-nlp` | Word lists | Rules, with Hindi post-word negation ("accha nahi") |
 
 ## Results on the held-out test split (3,000 Hinglish tweets)
 

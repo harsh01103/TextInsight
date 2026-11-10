@@ -233,7 +233,7 @@ class TestHybrid:
 
     def test_missing_packages_give_install_command(self, monkeypatch: pytest.MonkeyPatch) -> None:
         monkeypatch.setattr(HybridSentiment, "requires", ("module_that_does_not_exist_xyz",))
-        with pytest.raises(ti.BackendNotAvailableError, match=r"textinsight\[transformers\]"):
+        with pytest.raises(ti.BackendNotAvailableError, match=r"textinsight-nlp\[transformers\]"):
             ti.sentiment("hello there friend", backend="hybrid", language="en")
 
     def test_load_failure_is_reported_clearly(self, monkeypatch: pytest.MonkeyPatch) -> None:

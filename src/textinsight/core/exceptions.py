@@ -56,7 +56,7 @@ class BackendNotAvailableError(TextInsightError, ImportError):
         self.missing = tuple(missing)
         self.extra = extra
         hint = (
-            f'Install it with: pip install "textinsight[{extra}]"'
+            f'Install it with: pip install "textinsight-nlp[{extra}]"'
             if extra
             else f"Install the missing package(s): pip install {' '.join(self.missing)}"
         )

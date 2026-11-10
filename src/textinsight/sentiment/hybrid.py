@@ -1,6 +1,6 @@
 """Optional, most accurate backend: a Hinglish transformer blended with the classifier.
 
-Install with ``pip install "textinsight[transformers]"``. It must be requested
+Install with ``pip install "textinsight-nlp[transformers]"``. It must be requested
 with ``backend="hybrid"`` because first use downloads a 438 MB model, and
 ``backend="auto"`` should never cause that without being asked.
 
