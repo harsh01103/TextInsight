@@ -46,6 +46,7 @@ transformers = [
 training = [
     "scikit-learn>=1.5",
     "vaderSentiment>=3.3.2",
+    "pyarrow>=16",
 ]
 
 [project.scripts]
@@ -105,5 +106,5 @@ strict = true
 warn_unreachable = true
 
 [[tool.mypy.overrides]]
-module = ["torch", "transformers"]
+module = ["torch", "transformers", "pyarrow.*"]
 ignore_missing_imports = true

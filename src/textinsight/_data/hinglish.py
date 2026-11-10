@@ -272,3 +272,20 @@ STOPWORDS_HINGLISH = frozenset(
     hote liye saath ji
     """.split()
 )
+
+# Extra words that carry grammar or degree but do not name a topic. These are kept
+# apart from STOPWORDS_HINGLISH because only keywords and summaries ignore them.
+FUNCTION_WORDS_HINGLISH = frozenset(
+    """
+    bahut bohot kaafi zyada jyada thoda thodi thode kam itna itni itne utna utni utne
+    lekin magar par ya agar phir fir abhi ab jab tab kab kyun kyu kaise kaisa kaisi kahan
+    yahan wahan idhar udhar waha yaha jo jis jise jaise waise sirf bas hi nhi bilkul ekdum
+    ho hua hui hue hun hoon hu kar karo karna karta karti karte karenge karega karegi kiya
+    kiye ki gaya gayi gaye gya gyi aa aaya aayi aaye aata aati aate aana aayega aayegi
+    ja jaa jana jata jati jate jayega jayegi le lo lena leta leti lete liya liye li
+    de do dena deta deti dete diya diye di mil mila mili mile milta milti milte
+    chal chala chali chale chalta chalti chalte dekh dekha dekhi dekhna sakta sakti sakte
+    chahiye wala wali wale apna apni apne unke unki inke inki kis kisi kuchh
+    yaar bhai dost
+    """.split()
+)

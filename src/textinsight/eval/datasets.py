@@ -1,6 +1,6 @@
-"""Loader for the SemEval-2020 Task 9 (SentiMix) Hinglish dataset.
+"""Dataset loaders for the benchmarks. No dataset is distributed with TextInsight.
 
-The dataset is not distributed with TextInsight. Download it from
+SentiMix (SemEval-2020 Task 9, Hinglish): download it from
 https://doi.org/10.5281/zenodo.3974927 (CC-BY-4.0) and pass the path of its
 ``Hinglish`` folder.
 
@@ -11,12 +11,22 @@ Code-Mixed Tweets", Proceedings of SemEval-2020.
 from __future__ import annotations
 
 import csv
+import json
 import os
 from collections.abc import Mapping, Sequence
 from dataclasses import dataclass
 from pathlib import Path
 
-__all__ = ["Example", "load_sentimix", "read_conll", "strip_handles_and_links"]
+__all__ = [
+    "Example",
+    "KeyphraseExample",
+    "SummaryExample",
+    "load_cnn_dailymail",
+    "load_inspec",
+    "load_sentimix",
+    "read_conll",
+    "strip_handles_and_links",
+]
 
 _FILES = {
     "train": "Hinglish_train_14k_split_conll.txt",
@@ -105,3 +115,64 @@ def load_sentimix(root: str | os.PathLike[str], split: str) -> list[Example]:
         with (folder / _TEST_LABELS).open(encoding="utf-8", newline="") as handle:
             labels = {row["Uid"]: row["Sentiment"] for row in csv.DictReader(handle)}
     return read_conll(folder / _FILES[split], labels)
+
+
+@dataclass(frozen=True)
+class KeyphraseExample:
+    """A document and its reference keyphrases."""
+
+    text: str
+    keyphrases: tuple[str, ...]
+
+
+@dataclass(frozen=True)
+class SummaryExample:
+    """An article and its reference summary."""
+
+    article: str
+    reference: str
+
+
+_BRACKETS = {"-LRB-": "(", "-RRB-": ")", "-LSB-": "[", "-RSB-": "]", "-LCB-": "{", "-RCB-": "}"}
+_INSPEC_SPLITS = {"train": "train", "dev": "valid", "test": "test"}
+_CNN_SPLITS = {"dev": "validation", "test": "test"}
+
+
+def load_inspec(data_dir: str | os.PathLike[str], split: str) -> list[KeyphraseExample]:
+    """Load Inspec from the JSON-lines files of Hugging Face ``midas/inspec``.
+
+    References combine the keyphrases that appear in the text with those that do not.
+    """
+    if split not in _INSPEC_SPLITS:
+        raise ValueError(f"split must be one of {sorted(_INSPEC_SPLITS)}, got {split!r}")
+    path = Path(data_dir) / f"{_INSPEC_SPLITS[split]}.jsonl"
+    examples = []
+    with path.open(encoding="utf-8") as handle:
+        for line in handle:
+            record = json.loads(line)
+            words = (_BRACKETS.get(word, word) for word in record["document"])
+            phrases = (*record["extractive_keyphrases"], *record["abstractive_keyphrases"])
+            examples.append(KeyphraseExample(text=" ".join(words), keyphrases=phrases))
+    return examples
+
+
+def load_cnn_dailymail(data_dir: str | os.PathLike[str], split: str) -> list[SummaryExample]:
+    """Load CNN/DailyMail from the parquet files of Hugging Face ``abisee/cnn_dailymail``.
+
+    Needs ``pyarrow``, from the ``training`` extra.
+    """
+    if split not in _CNN_SPLITS:
+        raise ValueError(f"split must be one of {sorted(_CNN_SPLITS)}, got {split!r}")
+    try:
+        import pyarrow.parquet as parquet
+    except ImportError as error:
+        raise ImportError(
+            'Reading CNN/DailyMail needs pyarrow: pip install "textinsight-nlp[training]"'
+        ) from error
+    table = parquet.read_table(
+        Path(data_dir) / f"{_CNN_SPLITS[split]}.parquet", columns=["article", "highlights"]
+    )
+    return [
+        SummaryExample(article=row["article"], reference=row["highlights"])
+        for row in table.to_pylist()
+    ]

@@ -19,8 +19,8 @@ def _build_parser() -> argparse.ArgumentParser:
     commands = parser.add_subparsers(dest="command", required=True)
 
     benchmark = commands.add_parser("benchmark", help="measure quality on a labelled dataset")
-    benchmark.add_argument("task", choices=["sentiment", "langid"])
-    benchmark.add_argument("--data-dir", required=True, help="the SentiMix Hinglish folder")
+    benchmark.add_argument("task", choices=["sentiment", "langid", "keywords", "summarize"])
+    benchmark.add_argument("--data-dir", required=True, help="the folder holding the dataset")
     benchmark.add_argument("--split", choices=["train", "dev", "test"], default="dev")
     benchmark.add_argument("--out", type=Path, help="also write the full report as JSON")
     benchmark.add_argument(
@@ -38,11 +38,31 @@ def _row(name: str, report: dict[str, Any]) -> str:
     )
 
 
-def main(argv: Sequence[str] | None = None) -> int:
-    """Entry point for the ``textinsight`` command."""
-    args = _build_parser().parse_args(argv)
+def _print_scores(report: dict[str, dict[str, float]]) -> None:
+    columns = list(next(iter(report.values())))
+    print(f"{'method':<10} " + " ".join(f"{column:>12}" for column in columns))
+    for name, scores in report.items():
+        print(f"{name:<10} " + " ".join(f"{scores[column]:>12.4f}" for column in columns))
 
-    # Imported here so that the command starts quickly for --help and --version.
+
+def _run_scores(args: argparse.Namespace) -> dict[str, Any]:
+    from .eval import load_cnn_dailymail, load_inspec
+    from .eval.benchmark import evaluate_keywords, evaluate_summaries
+
+    report: dict[str, dict[str, float]]
+    if args.task == "keywords":
+        documents = load_inspec(args.data_dir, args.split)
+        print(f"keywords on Inspec {args.split} ({len(documents)} documents)")
+        report = evaluate_keywords(documents)
+    else:
+        articles = load_cnn_dailymail(args.data_dir, args.split)
+        print(f"summarize on CNN/DailyMail {args.split} ({len(articles)} articles)")
+        report = evaluate_summaries(articles)
+    _print_scores(report)
+    return report
+
+
+def _run_labels(args: argparse.Namespace) -> dict[str, Any]:
     from .eval import load_sentimix
     from .eval.benchmark import DEFAULT_METHODS, evaluate_language, evaluate_sentiment
 
@@ -59,6 +79,13 @@ def main(argv: Sequence[str] | None = None) -> int:
     else:
         report = {"per_word": evaluate_language(examples)}
         print(_row("per_word", report["per_word"]))
+    return report
+
+
+def main(argv: Sequence[str] | None = None) -> int:
+    """Entry point for the ``textinsight`` command."""
+    args = _build_parser().parse_args(argv)
+    report = _run_scores(args) if args.task in {"keywords", "summarize"} else _run_labels(args)
 
     if args.out:
         args.out.parent.mkdir(parents=True, exist_ok=True)

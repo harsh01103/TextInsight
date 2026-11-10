@@ -4,7 +4,18 @@ All notable changes to this project are documented here.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and the project uses [Semantic Versioning](https://semver.org/).
 
-## [0.1.0] - Unreleased
+## [Unreleased]
+
+### Added
+- `keywords()` with `textrank` (written from scratch), `rake` and `tfidf` methods.
+- `summarize()` with extractive `textrank` and `frequency` methods, and `ratio` and
+  `max_sentences` options.
+- Both treat Hinglish spellings such as "khana" and "khaana" as one word.
+- `eval.text_metrics`: Porter stemmer, keyphrase scoring and ROUGE, with no dependencies.
+- `textinsight benchmark keywords` (Inspec) and `textinsight benchmark summarize`
+  (CNN/DailyMail), with a Lead-3 baseline.
+
+## [0.1.0] - 2026-11-10
 
 ### Added
 - Project skeleton: src-layout package, `pyproject.toml`, ruff, mypy, pytest, pre-commit, GitHub Actions CI.

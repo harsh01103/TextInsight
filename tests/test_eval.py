@@ -2,14 +2,28 @@ from __future__ import annotations
 
 import importlib
 import json
+import sys
 from pathlib import Path
 from typing import Any
 
 import pytest
 
 from textinsight import cli
-from textinsight.eval import classification_report, load_sentimix, read_conll
-from textinsight.eval.benchmark import evaluate_language, evaluate_sentiment
+from textinsight.eval import (
+    KeyphraseExample,
+    SummaryExample,
+    classification_report,
+    load_cnn_dailymail,
+    load_inspec,
+    load_sentimix,
+    read_conll,
+)
+from textinsight.eval.benchmark import (
+    evaluate_keywords,
+    evaluate_language,
+    evaluate_sentiment,
+    evaluate_summaries,
+)
 from textinsight.eval.datasets import strip_handles_and_links
 
 TRAIN = (
@@ -198,3 +212,73 @@ class TestCli:
         with pytest.raises(SystemExit):
             cli.main(["--version"])
         assert capsys.readouterr().out.strip().count(".") == 2
+
+
+class TestBenchmarkLoaders:
+    def _write_inspec(self, folder: Path) -> None:
+        record = {
+            "document": ["Neural", "networks", "-LRB-", "NN", "-RRB-", "learn", "."],
+            "extractive_keyphrases": ["neural networks"],
+            "abstractive_keyphrases": ["deep learning"],
+        }
+        (folder / "valid.jsonl").write_text(json.dumps(record) + "\n", encoding="utf-8")
+
+    def test_inspec_restores_brackets_and_joins_references(self, tmp_path: Path) -> None:
+        self._write_inspec(tmp_path)
+        example = load_inspec(tmp_path, "dev")[0]
+        assert example.text == "Neural networks ( NN ) learn ."
+        assert example.keyphrases == ("neural networks", "deep learning")
+
+    def test_unknown_split_is_rejected(self, tmp_path: Path) -> None:
+        with pytest.raises(ValueError, match="split"):
+            load_inspec(tmp_path, "nope")
+        with pytest.raises(ValueError, match="split"):
+            load_cnn_dailymail(tmp_path, "train")
+
+    def test_cnn_dailymail(self, tmp_path: Path) -> None:
+        pyarrow = pytest.importorskip("pyarrow")
+        from pyarrow import parquet
+
+        table = pyarrow.table({"article": ["A long article."], "highlights": ["Short."]})
+        parquet.write_table(table, tmp_path / "test.parquet")
+        assert load_cnn_dailymail(tmp_path, "test")[0].reference == "Short."
+
+    def test_missing_pyarrow_gives_install_command(
+        self, tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+    ) -> None:
+        monkeypatch.setitem(sys.modules, "pyarrow.parquet", None)
+        monkeypatch.setitem(sys.modules, "pyarrow", None)
+        with pytest.raises(ImportError, match=r"textinsight-nlp\[training\]"):
+            load_cnn_dailymail(tmp_path, "test")
+
+    def test_keyword_report(self) -> None:
+        examples = [KeyphraseExample("Solar panels make solar power.", ("solar power",))]
+        report = evaluate_keywords(examples, methods=["rake"])
+        assert set(report["rake"]) >= {"precision@5", "f1@10"}
+
+    def test_summary_report_includes_lead_baseline(self) -> None:
+        article = "The council approved solar power. The cat slept. Rain fell. Birds sang."
+        examples = [SummaryExample(article, "The council approved solar power.")]
+        report = evaluate_summaries(examples, sentences=1)
+        assert report["lead"]["rouge-1"] == 1.0
+        assert set(report) == {"lead", "frequency", "textrank"}
+
+    def test_cli_keywords(self, tmp_path: Path, capsys: pytest.CaptureFixture[str]) -> None:
+        self._write_inspec(tmp_path)
+        out = tmp_path / "report.json"
+        assert (
+            cli.main(["benchmark", "keywords", "--data-dir", str(tmp_path), "--out", str(out)]) == 0
+        )
+        assert "Inspec" in capsys.readouterr().out
+        assert "textrank" in json.loads(out.read_text(encoding="utf-8"))
+
+    def test_cli_summarize(self, tmp_path: Path, capsys: pytest.CaptureFixture[str]) -> None:
+        pyarrow = pytest.importorskip("pyarrow")
+        from pyarrow import parquet
+
+        table = pyarrow.table(
+            {"article": ["Solar power grew. Rain fell."], "highlights": ["Solar."]}
+        )
+        parquet.write_table(table, tmp_path / "validation.parquet")
+        assert cli.main(["benchmark", "summarize", "--data-dir", str(tmp_path)]) == 0
+        assert "CNN/DailyMail" in capsys.readouterr().out
