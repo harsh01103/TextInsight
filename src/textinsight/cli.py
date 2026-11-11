@@ -1,7 +1,8 @@
 """Command-line interface for TextInsight.
 
-Run ``textinsight --help`` for the list of commands, or ``textinsight <command> --help``
-for the options of one command. ``python -m textinsight`` works the same way.
+Run ``textinsight --help`` (or ``textinsight help``) for every command, its options and the
+Python functions, or ``textinsight help <command>`` for one command.
+``python -m textinsight`` works the same way.
 """
 
 from __future__ import annotations
@@ -48,21 +49,25 @@ def _add_task_commands(commands: Any) -> None:
     aspects = commands.add_parser("aspects", help="what a review praises or criticizes")
     _add_input(aspects)
     _add_language(aspects)
-    aspects.add_argument("--method", default="auto")
-    aspects.add_argument("--min-mentions", type=int, default=1)
+    aspects.add_argument("--method", default="auto", help="rules or llm")
+    aspects.add_argument(
+        "--min-mentions", type=int, default=1, help="ignore aspects mentioned fewer times"
+    )
 
     keywords = commands.add_parser("keywords", help="the most relevant words and phrases")
     _add_input(keywords)
     _add_language(keywords)
     keywords.add_argument("--method", default="auto", help="textrank, rake or tfidf")
-    keywords.add_argument("--top-n", type=int, default=10)
+    keywords.add_argument("--top-n", type=int, default=10, help="how many keywords (default 10)")
 
     summarize = commands.add_parser("summarize", help="the most representative sentences")
     _add_input(summarize)
     _add_language(summarize)
     summarize.add_argument("--method", default="auto", help="textrank, frequency or abstractive")
-    summarize.add_argument("--ratio", type=float, default=0.3)
-    summarize.add_argument("--max-sentences", type=int)
+    summarize.add_argument(
+        "--ratio", type=float, default=0.3, help="share of sentences to keep (default 0.3)"
+    )
+    summarize.add_argument("--max-sentences", type=int, help="most sentences to keep")
 
     stats = commands.add_parser("stats", help="word counts, readability and reading time")
     _add_input(stats)
@@ -77,11 +82,25 @@ def _add_task_commands(commands: Any) -> None:
 
     clean = commands.add_parser("clean", help="remove URLs and HTML, optionally lowercase")
     _add_input(clean)
-    clean.add_argument("--lowercase", action="store_true")
+    clean.add_argument("--lowercase", action="store_true", help="also lowercase the text")
+
+
+class _MainParser(argparse.ArgumentParser):
+    """Shows options and the full command listing, instead of argparse's short command list."""
+
+    def format_help(self) -> str:
+        formatter = self._get_formatter()
+        formatter.add_usage(self.usage, self._actions, self._mutually_exclusive_groups)
+        formatter.add_text(self.description)
+        formatter.start_section("options")
+        formatter.add_arguments([action for action in self._actions if action.option_strings])
+        formatter.end_section()
+        formatter.add_text(self.epilog)
+        return formatter.format_help()
 
 
 def _build_parser() -> argparse.ArgumentParser:
-    parser = argparse.ArgumentParser(
+    parser = _MainParser(
         prog="textinsight",
         description="Lightweight NLP for English and Hinglish text.",
         epilog=_EXAMPLES,
@@ -90,7 +109,9 @@ def _build_parser() -> argparse.ArgumentParser:
     parser.add_argument(
         "-V", "--version", action="version", version=f"textinsight-nlp {__version__}"
     )
-    commands = parser.add_subparsers(dest="command", required=True, metavar="command")
+    commands = parser.add_subparsers(
+        dest="command", required=True, metavar="command", parser_class=argparse.ArgumentParser
+    )
     _add_task_commands(commands)
 
     analyze = commands.add_parser("analyze", help="analyse a CSV, JSON-lines or text file")
@@ -100,6 +121,9 @@ def _build_parser() -> argparse.ArgumentParser:
     analyze.add_argument("--out", type=Path, help="write a report, as .html or .json")
 
     commands.add_parser("info", help="show versions and which backends are installed")
+
+    help_command = commands.add_parser("help", help="show this full listing, or one command's help")
+    help_command.add_argument("topic", nargs="?", help="a command name, such as keywords")
 
     model_command = commands.add_parser("models", help="manage cached model files")
     model_command.add_argument("action", choices=["list", "clear"])
@@ -114,6 +138,9 @@ def _build_parser() -> argparse.ArgumentParser:
         action="store_true",
         help="also run the hybrid backend (may download a 438 MB model)",
     )
+    from .help_text import command_reference, function_reference
+
+    parser.epilog = "\n\n".join([command_reference(parser), function_reference(), _EXAMPLES])
     return parser
 
 
@@ -332,13 +359,29 @@ def _models(args: argparse.Namespace) -> int:
     return 0
 
 
+def _help(parser: argparse.ArgumentParser, topic: str | None) -> int:
+    if topic is None:
+        parser.print_help()
+        return 0
+    subparsers = next(
+        action for action in parser._actions if isinstance(action, argparse._SubParsersAction)
+    )
+    if topic not in subparsers.choices:
+        print(f"error: unknown command {topic!r}. Run 'textinsight help'.", file=sys.stderr)
+        return 2
+    subparsers.choices[topic].print_help()
+    return 0
+
+
 def main(argv: Sequence[str] | None = None) -> int:
     """Entry point for the ``textinsight`` command. Returns the exit code."""
-    args = _build_parser().parse_args(argv)
+    parser = _build_parser()
+    args = parser.parse_args(argv)
     handlers: dict[str, Callable[[argparse.Namespace], int]] = {
         "analyze": _analyze,
         "models": _models,
         "benchmark": _benchmark,
         "info": lambda _args: _info(),
+        "help": lambda arguments: _help(parser, arguments.topic),
     }
     return handlers.get(args.command, _run_task)(args)
