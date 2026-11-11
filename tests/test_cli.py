@@ -33,6 +33,42 @@ class TestVersionAndHelp:
             assert command in out
         assert "examples:" in out
 
+    def test_help_lists_every_command_option_and_function(
+        self, capsys: pytest.CaptureFixture[str]
+    ) -> None:
+        from textinsight.help_text import COMMAND_GROUPS
+
+        with pytest.raises(SystemExit):
+            cli.main(["--help"])
+        out = capsys.readouterr().out
+        parser = cli._build_parser()
+        subparsers = next(a for a in parser._actions if hasattr(a, "choices") and a.choices)
+        names = set(subparsers.choices)
+        assert names == {n for group in COMMAND_GROUPS.values() for n in group}
+        for name, command in subparsers.choices.items():
+            assert f"    {name} " in out
+            for action in command._actions:
+                for flag in action.option_strings:
+                    if flag.startswith("--") and flag != "--help":
+                        assert flag in out, (name, flag)
+        for name in ti.__all__:
+            if callable(getattr(ti, name)) and not name[0].isupper():
+                assert f"ti.{name} " in out, name
+        assert out.count("    sentiment ") == 1  # listed once, not twice
+
+    def test_help_command(self, capsys: pytest.CaptureFixture[str]) -> None:
+        code, out, _ = run(["help"], capsys)
+        assert code == 0
+        assert "python functions" in out
+        code, out, _ = run(["help", "keywords"], capsys)
+        assert code == 0
+        assert "--top-n" in out
+
+    def test_help_unknown_topic(self, capsys: pytest.CaptureFixture[str]) -> None:
+        code, _, err = run(["help", "nope"], capsys)
+        assert code == 2
+        assert "unknown command" in err
+
     def test_command_help(self, capsys: pytest.CaptureFixture[str]) -> None:
         with pytest.raises(SystemExit):
             cli.main(["keywords", "--help"])

@@ -1,7 +1,8 @@
 # Command line
 
-Every command has its own help, such as `textinsight keywords --help`. `python -m textinsight`
-works the same way as `textinsight`.
+`textinsight --help` (or `textinsight help`) lists every command with its options, and every
+Python function. `textinsight help keywords` shows one command in detail, as does
+`textinsight keywords --help`. `python -m textinsight` works the same way as `textinsight`.
 
 ```bash
 textinsight --help
